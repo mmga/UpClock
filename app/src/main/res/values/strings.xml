@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">UpClock</string>
+
+
+    <string name="title">UpClock</string>
+    <string name="action_settings">settings</string>
+</resources>
