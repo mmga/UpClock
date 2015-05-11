@@ -17,9 +17,9 @@ public class ListViewAdapter extends BaseAdapter {
 
 
     private ListCellData[] data = new ListCellData[]{
-            new ListCellData(true, 15, 7),
-            new ListCellData(true, 30, 6),
-            new ListCellData(false, 30, 8)};
+        new ListCellData(true, 15, 7),
+        new ListCellData(true, 30, 6),
+        new ListCellData(false, 30, 8)};
 
 
     private Context context = null;
@@ -31,6 +31,11 @@ public class ListViewAdapter extends BaseAdapter {
     public Context getContext() {
         return context;
     }
+
+
+    /*public void add(ListCellData data1) {
+
+    }*/
 
     @Override
     public int getCount() {
@@ -48,7 +53,9 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
+
 
         LinearLayout ll = null;
         if (convertView != null) {
@@ -60,11 +67,10 @@ public class ListViewAdapter extends BaseAdapter {
         ListCellData data = (ListCellData) getItem(position);
 
         TextView time = (TextView) ll.findViewById(R.id.textview);
-        time.setText(String.format("%d:%d",data.getHour(),data.getMinite()));
-//        Switch isAvailible = (Switch) ll.findViewById(R.id.switch1);
+        String lable = String.format("%d:%d", data.getHour(), data.getMinite());
+        time.setText(lable);
 
-
-        return ll;
-    }
+        return ll;}
 }
+
 

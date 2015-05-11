@@ -8,6 +8,7 @@ public class ListCellData {
     private int hour;
     private int minite;
 
+
     public ListCellData(Boolean isAvailable, int minite, int hour) {
         this.isAvailable = isAvailable;
         this.minite = minite;
