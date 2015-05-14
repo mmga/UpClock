@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#26a69a">
+
+
+    <ImageButton
+        android:id="@+id/btn_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="#00000000"
+
+        android:src="@mipmap/ic_settings_white_36dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/text_tomorrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#eceff1"
+        android:textSize="30dp"
+        android:text="明天"
+        android:layout_alignTop="@+id/text_time"
+        android:layout_centerHorizontal="true" />
+
+    <com.mmga.upclock.Utils.CustomFortTextViewNum
+        android:id="@+id/text_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#eceff1"
+        android:textSize="130dp"
+        android:text="07:30"
+        android:layout_centerInParent="true"
+         />
+
+    <com.mmga.upclock.Utils.CustomFontTextView
+        android:id="@+id/text_switch_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#eceff1"
+        android:textSize="30dp"
+        android:text="准时起"
+        android:layout_alignBottom="@+id/text_time"
+        android:layout_centerHorizontal="true"
+         />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_set_time"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <ImageButton
+            android:id="@+id/btn_set_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_alarm_white_36dp"
+             />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_set_time"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:textColor="#eceff1"
+            android:text="闹钟"
+            android:layout_alignBottom="@+id/btn_set_time"
+            android:layout_toRightOf="@+id/btn_set_time"
+            android:layout_toEndOf="@+id/btn_set_time"
+            android:layout_alignTop="@+id/btn_set_time" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
