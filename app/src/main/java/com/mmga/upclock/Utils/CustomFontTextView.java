@@ -29,7 +29,7 @@ public class CustomFontTextView extends TextView {
 
     private void init(Context context) {
         AssetManager assertMgr = context.getAssets();
-        Typeface font = Typeface.createFromAsset(assertMgr, "fonts/fangzhenglanting.ttf");
+        Typeface font = Typeface.createFromAsset(assertMgr, "fonts/yueheixichang.ttf");
         setTypeface(font);
 
     }

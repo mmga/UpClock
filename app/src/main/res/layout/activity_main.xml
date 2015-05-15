@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+
+    <RelativeLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#26a69a">
+    android:background="#ff26a69a">
+    <Button
+        android:id="@+id/menuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Menu" />
 
 
     <ImageButton
@@ -18,7 +36,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <TextView
+    <com.mmga.upclock.Utils.CustomFontTextView
         android:id="@+id/text_tomorrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -83,3 +101,31 @@
 
 
 </RelativeLayout>
+    
+    <LinearLayout
+        android:id="@+id/right_drawer"
+        android:layout_width="138dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:orientation="vertical">
+        
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:src="#ff26a69a"/>
+        
+        
+        <ListView
+            android:id="@+id/drawer_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:choiceMode="singleChoice"
+            android:divider="#ffc1c1c1"
+            android:dividerHeight="1dp"
+            android:background="#ffeceff1"/>
+        
+        
+        </LinearLayout>
+    
+
+</android.support.v4.widget.DrawerLayout>
