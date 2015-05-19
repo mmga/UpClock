@@ -9,20 +9,20 @@ import android.widget.TextView;
 /**
  * Created by mmga on 2015/5/14.
  */
-public class CustomFortTextViewNum extends TextView {
+public class CustomFontTextViewNum extends TextView {
 
-    public CustomFortTextViewNum(Context context) {
+    public CustomFontTextViewNum(Context context) {
         super(context);
         init(context);
 
     }
 
-    public CustomFortTextViewNum(Context context, AttributeSet attrs) {
+    public CustomFontTextViewNum(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context);
     }
 
-    public CustomFortTextViewNum(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomFontTextViewNum(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }

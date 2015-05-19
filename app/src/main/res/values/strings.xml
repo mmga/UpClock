@@ -4,4 +4,6 @@
 
     <string name="title">UpClock</string>
     <string name="action_settings">settings</string>
+    <drawable name="bkcolor">#ff26a69a</drawable>
+    <drawable name="bkcolorgray">#ffc1c1c1</drawable>
 </resources>
