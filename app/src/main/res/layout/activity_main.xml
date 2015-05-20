@@ -48,25 +48,33 @@
         android:layout_alignTop="@+id/text_time"
         android:layout_centerHorizontal="true" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/hour_up"
+        android:src= "@mipmap/ic_chevron_up_white_48dp"
+        android:visibility="gone"
         />
-        <ImageButton
+        <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/hour_down"
+        android:src= "@mipmap/ic_chevron_down_white_48dp"
+        android:visibility="gone"
         />
-        <ImageButton
+        <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/minute_up"
+        android:src= "@mipmap/ic_chevron_up_white_48dp"
+        android:visibility="gone"
         />
-        <ImageButton
+        <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/minute_down"
+        android:src= "@mipmap/ic_chevron_down_white_48dp"
+        android:visibility="gone"
         />
 
     <LinearLayout
@@ -87,12 +95,21 @@
             />
 
         <com.mmga.upclock.Utils.CustomFontTextViewNum
+            android:id="@+id/text_time_colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#eceff1"
+            android:textSize="130dp"
+            android:text=":"
+            />
+
+        <com.mmga.upclock.Utils.CustomFontTextViewNum
             android:id="@+id/text_time_Minute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#eceff1"
             android:textSize="130dp"
-            android:text=":30"
+            android:text="30"
             />
 
         </LinearLayout>
@@ -115,9 +132,10 @@
         android:id="@+id/layout_set_time"
         android:layout_marginBottom="30dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        >
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btn_set_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -127,16 +145,7 @@
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/ic_alarm_white_36dp"
              />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignBottom="@+id/btn_set_time"
-            android:layout_toRightOf="@+id/btn_set_time"
-            android:layout_toEndOf="@+id/btn_set_time"
-            android:layout_alignTop="@+id/btn_set_time">
-
-            <com.mmga.upclock.Utils.CustomFontTextView
+        <com.mmga.upclock.Utils.CustomFontTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/text_set_time"
@@ -144,20 +153,42 @@
             android:textSize="25dp"
             android:textColor="#eceff1"
             android:text="设定"
-             />
-
-            <com.mmga.upclock.Utils.CustomFontTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/text_confirm"
-                android:textSize="25dp"
-                android:textColor="#eceff1"
-                android:text="确认"
-                android:visibility="gone"/></LinearLayout>
-
-
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/btn_set_time"
+            android:layout_toEndOf="@+id/btn_set_time" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_confirm_time"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        >
+        <ImageView
+            android:id="@+id/btn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_alarm_check_white_36dp"
+            />
+        <com.mmga.upclock.Utils.CustomFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_confirm"
+            android:textSize="25dp"
+            android:textColor="#eceff1"
+            android:text="确认"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/btn_confirm"
+            android:layout_toEndOf="@+id/btn_confirm"
+            />
+    </RelativeLayout>
 
 </RelativeLayout>
     

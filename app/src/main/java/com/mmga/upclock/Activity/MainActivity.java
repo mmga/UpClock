@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -13,13 +14,17 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -37,20 +42,21 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private static final int CLOSE_SET_TIME_INTERFACE = 0;
     private RelativeLayout main;
     private ImageButton btnSettings;
-    private ImageButton btnSetTime;
+//    private ImageView btnSetTime;
+//    private ImageView btnConfirm;
     private TextView textTomorrow;
     private TextView textTimeHour;
     private TextView textTimeMinute;
     private TextView textSwitchState;
-    private TextView textSetTime;
-    private TextView textConfirmTime;
+    //    private TextView textSetTime;
+//    private TextView textConfirmTime;
+    private RelativeLayout setTime;
+    private RelativeLayout confirmSetting;
 
-    private TextView textHourMinusOne;
-    private TextView textHourAddOne;
-    private TextView textMinuteMinusFive;
-    private TextView textMinuteAddFive;
-    final private float TIME_TRANS_DIS = 50;
-
+    private ImageView hourUp;
+    private ImageView hourDown;
+    private ImageView minuteUp;
+    private ImageView minuteDown;
 
     private Button mButton;
     private DrawerLayout mDrawerLayout;
@@ -60,9 +66,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-
-
-
 
 
     @Override
@@ -91,8 +94,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
         });
 
 //        打开闹钟设置界面的按钮
-        textSetTime.setClickable(true);
-        textSetTime.setOnClickListener(this);
+        setTime.setClickable(true);
+        setTime.setOnClickListener(this);
 
 
 
@@ -141,10 +144,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private void init() {
         main = (RelativeLayout) findViewById(R.id.main);
         btnSettings = (ImageButton) findViewById(R.id.btn_settings);
-        btnSetTime = (ImageButton) findViewById(R.id.btn_set_time);
-        textSetTime = (TextView) findViewById(R.id.text_set_time);
-        textConfirmTime = (TextView) findViewById(R.id.text_confirm);
-        textConfirmTime.setVisibility(View.INVISIBLE);
+//        btnSetTime = (ImageView) findViewById(R.id.btn_set_time);
+//        btnConfirm = (ImageView) findViewById(R.id.btn_confirm);
+//        textSetTime = (TextView) findViewById(R.id.text_set_time);
+//        textConfirmTime = (TextView) findViewById(R.id.text_confirm);
+//        textConfirmTime.setVisibility(View.INVISIBLE);
+        setTime = (RelativeLayout) findViewById(R.id.layout_set_time);
+        confirmSetting = (RelativeLayout) findViewById(R.id.layout_confirm_time);
         textTomorrow = (TextView) findViewById(R.id.text_tomorrow);
         textTimeHour = (TextView) findViewById(R.id.text_time_Hour);
         textTimeMinute = (TextView) findViewById(R.id.text_time_Minute);
@@ -154,11 +160,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
         mRightDrawer = (LinearLayout) findViewById(R.id.right_drawer);
         mDrawerList = (ListView) findViewById(R.id.drawer_list);
 
-
-//        textHourMinusOne = (TextView) findViewById(R.id.text_time_hour_minus_one);
-//        textHourAddOne = (TextView) findViewById(R.id.text_time_hour_add_one);
-//        textMinuteMinusFive = (TextView) findViewById(R.id.text_time_minute_minus_five);
-//        textMinuteAddFive = (TextView) findViewById(R.id.text_time_minute_add_five);
+        hourUp = (ImageView) findViewById(R.id.hour_up);
+        hourDown = (ImageView) findViewById(R.id.hour_down);
+        minuteUp = (ImageView) findViewById(R.id.minute_up);
+        minuteDown = (ImageView) findViewById(R.id.minute_down);
 
 
 
@@ -170,25 +175,36 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.text_set_time:
+            case R.id.layout_set_time:
+                confirmSetting.setVisibility(View.VISIBLE);
+                hourUp.setVisibility(View.VISIBLE);
+                hourDown.setVisibility(View.VISIBLE);
+                minuteUp.setVisibility(View.VISIBLE);
+                minuteDown.setVisibility(View.VISIBLE);
+
+                confirmSetting.setOnClickListener(this);
+                setTime.setClickable(false);
                 openSetTimeUIAnim();
-
-//                textConfirmTime.setVisibility(View.VISIBLE);
-//                textSetTime.setVisibility(View.GONE);
-                textConfirmTime.setClickable(true);
-                textConfirmTime.setOnClickListener(this);
                 break;
-            case R.id.text_confirm:
-//                saveData();
+            case R.id.layout_confirm_time:
+                saveData();
 //                updateUI();
+                setTime.setVisibility(View.VISIBLE);
+                confirmSetting.setClickable(false);
                 closeSetTimeUIAnim();
-                textConfirmTime.setVisibility(View.GONE);
-                textSetTime.setVisibility(View.VISIBLE);
-                textConfirmTime.setClickable(false);
                 break;
-
-
-
+            case R.id.hour_up:
+                Toast.makeText(MainActivity.this,"hourup",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.hour_down:
+                Toast.makeText(MainActivity.this,"hourdown",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.minute_up:
+                Toast.makeText(MainActivity.this,"minuteup",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.minute_down:
+                Toast.makeText(MainActivity.this,"minutedown",Toast.LENGTH_SHORT).show();
+                break;
             default:
                 break;
         }
@@ -256,9 +272,17 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private void openSetTimeUIAnim() {
 
-        final float textSetTimeCurTransY = textSetTime.getTranslationY();
+        float textSetTimeCurTransY = setTime.getTranslationY();
+        float middleY = getScreenHeight(this) * 0.5f*0.9f;
+        float leftX = getScreenWidth(this) * 0.2f * 0.9f;
+        float rightX = getScreenWidth(this) * 0.8f * 0.9f;
+        float textHeight = textTimeHour.getHeight();
+        hourUp.setX(leftX);
+        hourDown.setX(leftX);
+        minuteUp.setX(rightX);
+        minuteDown.setX(rightX);
 
-        //                界面缩小
+//                界面缩小
         ObjectAnimator anim1 = ObjectAnimator.ofFloat(main, "ScaleY", 1f, 0.9f);
         anim1.setInterpolator(new AccelerateInterpolator());
         ObjectAnimator anim2 = ObjectAnimator.ofFloat(main, "ScaleX", 1f, 0.9f);
@@ -267,47 +291,90 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
 //                “设置”按钮消失
-        ObjectAnimator anim3 = ObjectAnimator.ofFloat(
-                textSetTime, "translationY", textSetTimeCurTransY, textSetTimeCurTransY + 50);
-        anim3.setInterpolator(new DecelerateInterpolator());
-        ObjectAnimator anim4 = ObjectAnimator.ofFloat(textSetTime, "alpha", 1f, 0f);
+       /* ObjectAnimator anim3 = ObjectAnimator.ofFloat(
+                setTime, "translationY", textSetTimeCurTransY, textSetTimeCurTransY + 80);
+        anim3.setInterpolator(new DecelerateInterpolator());*/
+        ObjectAnimator anim4 = ObjectAnimator.ofFloat(setTime, "alpha", 1f, 0f);
         anim4.setInterpolator(new DecelerateInterpolator());
-        anim3.addListener(new AnimatorListenerAdapter(){
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                textSetTime.setVisibility(View.GONE);
-            }
-        });
+
 
 //                “确认”按钮出现
         ObjectAnimator anim5 = ObjectAnimator.ofFloat(
-                textConfirmTime, "translationY", textSetTimeCurTransY - 50, textSetTimeCurTransY);
-        anim5.setInterpolator(new DecelerateInterpolator());
-        ObjectAnimator anim6 = ObjectAnimator.ofFloat(textConfirmTime, "alpha", 0.3f, 1f);
+                confirmSetting, "translationY", textSetTimeCurTransY + 80, textSetTimeCurTransY);
+        anim5.setInterpolator(new OvershootInterpolator());
+        ObjectAnimator anim6 = ObjectAnimator.ofFloat(confirmSetting, "alpha", 0f, 1f);
         anim6.setInterpolator(new DecelerateInterpolator());
+
+
+//        弹出Hour的上下箭头
+
+        ObjectAnimator anim7 = ObjectAnimator.ofFloat(hourUp, "translationY", middleY, middleY - textHeight*0.5f);
+        ObjectAnimator anim8 = ObjectAnimator.ofFloat(hourDown,"translationY", middleY, middleY + textHeight*0.5f);
+        anim7.setInterpolator(new OvershootInterpolator());
+        anim8.setInterpolator(new OvershootInterpolator());
+        ObjectAnimator anim9 = ObjectAnimator.ofFloat(hourUp, "alpha",0f,1f);
+        ObjectAnimator anim10 = ObjectAnimator.ofFloat(hourDown, "alpha",0f,1f);
+
+//        弹出Minute的上下箭头
+        ObjectAnimator anim11 = ObjectAnimator.ofFloat(minuteUp, "translationY", middleY, middleY - textHeight*0.5f);
+        ObjectAnimator anim12 = ObjectAnimator.ofFloat(minuteDown,"translationY", middleY, middleY + textHeight*0.5f);
+        anim11.setInterpolator(new OvershootInterpolator());
+        anim12.setInterpolator(new OvershootInterpolator());
+        ObjectAnimator anim13 = ObjectAnimator.ofFloat(minuteUp, "alpha",0f,1f);
+        ObjectAnimator anim14 = ObjectAnimator.ofFloat(minuteDown, "alpha",0f,1f);
+
+
+//              动画监听器 开始
         anim5.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
-                textConfirmTime.setVisibility(View.VISIBLE);
+                setTime.setClickable(false);
+                confirmSetting.setVisibility(View.VISIBLE);
+                hourUp.setVisibility(View.VISIBLE);
+                hourDown.setVisibility(View.VISIBLE);
+                minuteUp.setVisibility(View.VISIBLE);
+                minuteDown.setVisibility(View.VISIBLE);
+            }
+        });
+
+//              动画监听器 结束
+        anim5.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                confirmSetting.setClickable(true);
+                hourUp.setClickable(true);
+                hourDown.setClickable(true);
+                minuteUp.setClickable(true);
+                minuteDown.setClickable(true);
             }
         });
 
 
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(400);
-//        animatorSet.playTogether(anim1,anim2);
-//        animatorSet.playSequentially(anim1,anim3);
-        animatorSet.playTogether(anim1,anim2,anim3,anim4,anim5,anim6);
+        animatorSet.playTogether(anim1,anim2,/*anim3,*/anim4,anim5,anim6,anim7,anim8,anim9,
+                anim10,anim11,anim12,anim13,anim14/*,anim15,anim16,anim17,anim18*/ );
         animatorSet.start();
-        
+
+
 
     }
 
+
+
     private void closeSetTimeUIAnim() {
 
-        float textSetTimeCurTransY = textConfirmTime.getTranslationY();
+        float textSetTimeCurTransY = confirmSetting.getTranslationY();
+        float middleY = getScreenHeight(this) * 0.5f*0.9f;
+        float leftX = getScreenWidth(this) * 0.2f*0.9f;
+        float rightX = getScreenWidth(this) * 0.8f*0.9f;
+        float textHeight = textTimeHour.getHeight();
+        hourUp.setX(leftX);
+        hourDown.setX(leftX);
+        minuteUp.setX(rightX);
+        minuteDown.setX(rightX);
 
 //                界面放大
         ObjectAnimator anim1 = ObjectAnimator.ofFloat(main, "ScaleY", 0.9f, 1f);
@@ -317,28 +384,89 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 //                “设置”按钮出现
         ObjectAnimator anim3 = ObjectAnimator.ofFloat(
-                textSetTime, "translationY", textSetTimeCurTransY - 50, textSetTimeCurTransY);
-        anim3.setInterpolator(new DecelerateInterpolator());
-        ObjectAnimator anim4 = ObjectAnimator.ofFloat(textSetTime, "alpha", 0f, 1f);
+                setTime, "translationY", textSetTimeCurTransY + 80, textSetTimeCurTransY);
+        anim3.setInterpolator(new OvershootInterpolator());
+        ObjectAnimator anim4 = ObjectAnimator.ofFloat(setTime, "alpha", 0f, 1f);
         anim4.setInterpolator(new DecelerateInterpolator());
 
 //                “确认”按钮消失
-        ObjectAnimator anim5 = ObjectAnimator.ofFloat(
-                textConfirmTime, "translationY", textSetTimeCurTransY, textSetTimeCurTransY+50);
-        anim5.setInterpolator(new DecelerateInterpolator());
-        ObjectAnimator anim6 = ObjectAnimator.ofFloat(textConfirmTime, "alpha", 1f, 0f);
+        /*ObjectAnimator anim5 = ObjectAnimator.ofFloat(
+                confirmSetting, "translationY", textSetTimeCurTransY, textSetTimeCurTransY + 80);
+        anim5.setInterpolator(new DecelerateInterpolator());*/
+        ObjectAnimator anim6 = ObjectAnimator.ofFloat(confirmSetting, "alpha", 1f, 0f);
         anim6.setInterpolator(new DecelerateInterpolator());
 
 
+//        收回Hour的上下箭头
+        ObjectAnimator anim7 = ObjectAnimator.ofFloat(hourUp, "translationY", middleY - textHeight*0.5f, middleY);
+        ObjectAnimator anim8 = ObjectAnimator.ofFloat(hourDown,"translationY", middleY + textHeight*0.5f, middleY);
+        anim7.setInterpolator(new OvershootInterpolator());
+        anim8.setInterpolator(new OvershootInterpolator());
+        ObjectAnimator anim9 = ObjectAnimator.ofFloat(hourUp, "alpha",1f,0f);
+        ObjectAnimator anim10 = ObjectAnimator.ofFloat(hourDown, "alpha",1f,0f);
+        anim9.setInterpolator(new DecelerateInterpolator());
+        anim10.setInterpolator(new DecelerateInterpolator());
+
+//        收回Minute的上下箭头
+        ObjectAnimator anim11 = ObjectAnimator.ofFloat(minuteUp, "translationY", middleY - textHeight*0.5f, middleY);
+        ObjectAnimator anim12 = ObjectAnimator.ofFloat(minuteDown,"translationY", middleY + textHeight*0.5f, middleY);
+        anim11.setInterpolator(new OvershootInterpolator());
+        anim12.setInterpolator(new OvershootInterpolator());
+        ObjectAnimator anim13 = ObjectAnimator.ofFloat(minuteUp, "alpha",1f,0f);
+        ObjectAnimator anim14 = ObjectAnimator.ofFloat(minuteDown, "alpha",1f,0f);
+        anim11.setInterpolator(new DecelerateInterpolator());
+        anim12.setInterpolator(new DecelerateInterpolator());
+
+
+//              动画监听器 开始
+        anim6.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                confirmSetting.setClickable(false);
+                hourUp.setClickable(false);
+                hourDown.setClickable(false);
+                minuteUp.setClickable(false);
+                minuteDown.setClickable(false);
+
+
+            }
+        });
+//              动画监听器 结束
+        anim6.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationStart(animation);
+                confirmSetting.setVisibility(View.GONE);
+                setTime.setClickable(true);
+                hourUp.setVisibility(View.GONE);
+                hourDown.setVisibility(View.GONE);
+                minuteUp.setVisibility(View.GONE);
+                minuteDown.setVisibility(View.GONE);
+
+            }
+        });
+
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(400);
-//        animatorSet.playTogether(anim1,anim2);
-//        animatorSet.playSequentially(anim1,anim3);
-        animatorSet.playTogether(anim1,anim2,anim3,anim4,anim5,anim6);
+        animatorSet.playTogether(anim1,anim2,anim3,anim4,/*anim5,*/anim6,anim7,anim8,
+                anim9,anim10,anim11,anim12,anim13,anim14);
         animatorSet.start();
 
     }
 
+    public static int getScreenHeight(Context context) {
+        WindowManager manager = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+        return display.getHeight();
+    }
 
+    private static int getScreenWidth(Context context) {
+        WindowManager manager = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+        return display.getWidth();
+    }
 
 }
