@@ -1,8 +1,10 @@
 package com.mmga.upclock.Activity;
 
 import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
@@ -19,8 +21,6 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,15 +38,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private static final int LOAD_DATA = 0;
     private static final int CLOSE_SET_TIME_INTERFACE = 1;
     private RelativeLayout main;
-    private ImageButton btnSettings;
-//    private ImageView btnSetTime;
-//    private ImageView btnConfirm;
+    private ImageView btnSettings;
     private TextView textTomorrow;
     private TextView textTimeHour;
     private TextView textTimeMinute;
     private TextView textSwitchState;
-    //    private TextView textSetTime;
-//    private TextView textConfirmTime;
     private RelativeLayout setTime;
     private RelativeLayout confirmSetting;
 
@@ -55,7 +51,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private ImageView minuteUp;
     private ImageView minuteDown;
 
-    private Button mButton;
     private DrawerLayout mDrawerLayout;
     private LinearLayout mRightDrawer;
     private ListView mDrawerList;
@@ -82,7 +77,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listData));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener(MainActivity.this));
 //        打开抽屉菜单栏的按钮
-        mButton.setOnClickListener(new View.OnClickListener() {
+        btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(mRightDrawer);
@@ -102,14 +97,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private void init() {
         main = (RelativeLayout) findViewById(R.id.main);
-        btnSettings = (ImageButton) findViewById(R.id.btn_settings);
+        btnSettings = (ImageView) findViewById(R.id.btn_settings);
+        btnSettings.setClickable(true);
         setTime = (RelativeLayout) findViewById(R.id.layout_set_time);
         confirmSetting = (RelativeLayout) findViewById(R.id.layout_confirm_time);
         textTomorrow = (TextView) findViewById(R.id.text_tomorrow);
         textTimeHour = (TextView) findViewById(R.id.text_time_Hour);
         textTimeMinute = (TextView) findViewById(R.id.text_time_Minute);
         textSwitchState = (TextView) findViewById(R.id.text_switch_state);
-        mButton = (Button) findViewById(R.id.menuButton);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mRightDrawer = (LinearLayout) findViewById(R.id.right_drawer);
         mDrawerList = (ListView) findViewById(R.id.drawer_list);
@@ -250,8 +245,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         float textSetTimeCurTransY = setTime.getTranslationY();
         float middleY = getScreenHeight(this) * 0.5f*0.9f;
-        float leftX = getScreenWidth(this) * 0.2f * 0.9f;
-        float rightX = getScreenWidth(this) * 0.8f * 0.9f;
+        float leftX = getScreenWidth(this) * 0.2f*0.9f;
+        float rightX = getScreenWidth(this) * 0.8f*0.9f;
         float textHeight = textTimeHour.getHeight();
         hourUp.setX(leftX);
         hourDown.setX(leftX);
@@ -299,6 +294,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         ObjectAnimator anim13 = ObjectAnimator.ofFloat(minuteUp, "alpha",0f,1f);
         ObjectAnimator anim14 = ObjectAnimator.ofFloat(minuteDown, "alpha",0f,1f);
 
+//        背景色渐变
+        ObjectAnimator anim15 = (ObjectAnimator) AnimatorInflater
+                .loadAnimator(MainActivity.this, R.animator.background_color);
+        anim15.setEvaluator(new ArgbEvaluator());
+        anim15.setTarget(mDrawerLayout);
+
 
 //              动画监听器 开始
         anim5.addListener(new AnimatorListenerAdapter() {
@@ -331,7 +332,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(400);
         animatorSet.playTogether(anim1,anim2,/*anim3,*/anim4,anim5,anim6,anim7,anim8,anim9,
-                anim10,anim11,anim12,anim13,anim14/*,anim15,anim16,anim17,anim18*/ );
+                anim10,anim11,anim12,anim13,anim14,anim15/*,anim16,anim17,anim18*/ );
         animatorSet.start();
 
 
@@ -393,6 +394,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
         anim11.setInterpolator(new DecelerateInterpolator());
         anim12.setInterpolator(new DecelerateInterpolator());
 
+//        背景色渐变
+        ObjectAnimator anim15 = (ObjectAnimator) AnimatorInflater
+                .loadAnimator(MainActivity.this, R.animator.background_color_reverse);
+        anim15.setEvaluator(new ArgbEvaluator());
+        anim15.setTarget(mDrawerLayout);
+
 
 //              动画监听器 开始
         anim6.addListener(new AnimatorListenerAdapter() {
@@ -426,7 +433,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(400);
         animatorSet.playTogether(anim1,anim2,anim3,anim4,/*anim5,*/anim6,anim7,anim8,
-                anim9,anim10,anim11,anim12,anim13,anim14);
+                anim9,anim10,anim11,anim12,anim13,anim14,anim15);
         animatorSet.start();
 
     }
