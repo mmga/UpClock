@@ -54,6 +54,7 @@
         android:id="@+id/hour_up"
         android:src= "@mipmap/ic_chevron_up_white_48dp"
         android:visibility="gone"
+        android:clickable="false"
         />
         <ImageView
         android:layout_width="wrap_content"
@@ -61,6 +62,7 @@
         android:id="@+id/hour_down"
         android:src= "@mipmap/ic_chevron_down_white_48dp"
         android:visibility="gone"
+        android:clickable="false"
         />
         <ImageView
         android:layout_width="wrap_content"
@@ -68,6 +70,7 @@
         android:id="@+id/minute_up"
         android:src= "@mipmap/ic_chevron_up_white_48dp"
         android:visibility="gone"
+        android:clickable="false"
         />
         <ImageView
         android:layout_width="wrap_content"
@@ -75,6 +78,7 @@
         android:id="@+id/minute_down"
         android:src= "@mipmap/ic_chevron_down_white_48dp"
         android:visibility="gone"
+        android:clickable="false"
         />
 
     <LinearLayout
@@ -90,16 +94,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#eceff1"
-            android:textSize="130dp"
-            android:text="07"
-            />
+            android:textSize="130sp"/>
+            <!--android:text="07"-->
+
 
         <com.mmga.upclock.Utils.CustomFontTextViewNum
             android:id="@+id/text_time_colon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#eceff1"
-            android:textSize="130dp"
+            android:textSize="130sp"
             android:text=":"
             />
 
@@ -108,9 +112,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#eceff1"
-            android:textSize="130dp"
-            android:text="30"
-            />
+            android:textSize="130sp"/>
+            <!--android:text="30"-->
 
         </LinearLayout>
 

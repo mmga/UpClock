@@ -10,10 +10,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Message;
-import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -38,8 +35,8 @@ import com.mmga.upclock.Utils.DrawerItemClickListener;
  * Created by mmga on 2015/5/14.
  */
 public class MainActivity extends Activity implements View.OnClickListener{
-    private static final int OPEN_SET_TIME_INTERFACE = 1;
-    private static final int CLOSE_SET_TIME_INTERFACE = 0;
+    private static final int LOAD_DATA = 0;
+    private static final int CLOSE_SET_TIME_INTERFACE = 1;
     private RelativeLayout main;
     private ImageButton btnSettings;
 //    private ImageView btnSetTime;
@@ -64,8 +61,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private ListView mDrawerList;
     private String[] listData = new String[]{"主题设置", "铃声设置","分享给朋友"};
 
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
+    private int hourData = -1;
+    private int minuteData =-1;
+
 
 
     @Override
@@ -74,10 +72,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-        loadData();
-        Log.d(">>>>>>>>>", "2");
         init();
-        Log.d(">>>>>>>>>", "3");
+        loadData();
         Resources res = getResources();
         Drawable drawable = res.getDrawable(R.drawable.bkcolor);
         this.getWindow().setBackgroundDrawable(drawable);
@@ -96,59 +92,17 @@ public class MainActivity extends Activity implements View.OnClickListener{
 //        打开闹钟设置界面的按钮
         setTime.setClickable(true);
         setTime.setOnClickListener(this);
-
-
-
-
-//        @Override
-//        public void onClick(View v) {
-//            Toast.makeText(MainActivity.this, "设定时间", Toast.LENGTH_SHORT).show();
-//
-//            new Thread(){
-//                public void run() {
-//                    try {
-//                        Message message = new Message();
-//                        message.what = OPEN_SET_TIME_INTERFACE;
-//                        handler.sendMessage(message);
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }.start();
-//        }
+        confirmSetting.setOnClickListener(this);
+        hourUp.setOnClickListener(this);
+        hourDown.setOnClickListener(this);
+        minuteUp.setOnClickListener(this);
+        minuteDown.setOnClickListener(this);
 
     }
-
-
-
-    private android.os.Handler handler = new android.os.Handler() {
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case OPEN_SET_TIME_INTERFACE:
-                    Toast.makeText(MainActivity.this, "open", Toast.LENGTH_SHORT).show();
-                    Resources res = getResources();
-                    Drawable drawable = res.getDrawable(R.drawable.bkcolorgray);
-                    MainActivity.this.getWindow().setBackgroundDrawable(drawable);
-                    break;
-                case CLOSE_SET_TIME_INTERFACE:
-                    Toast.makeText(MainActivity.this, "close", Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    break;
-
-            }
-        }
-
-    };
 
     private void init() {
         main = (RelativeLayout) findViewById(R.id.main);
         btnSettings = (ImageButton) findViewById(R.id.btn_settings);
-//        btnSetTime = (ImageView) findViewById(R.id.btn_set_time);
-//        btnConfirm = (ImageView) findViewById(R.id.btn_confirm);
-//        textSetTime = (TextView) findViewById(R.id.text_set_time);
-//        textConfirmTime = (TextView) findViewById(R.id.text_confirm);
-//        textConfirmTime.setVisibility(View.INVISIBLE);
         setTime = (RelativeLayout) findViewById(R.id.layout_set_time);
         confirmSetting = (RelativeLayout) findViewById(R.id.layout_confirm_time);
         textTomorrow = (TextView) findViewById(R.id.text_tomorrow);
@@ -165,8 +119,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
         minuteUp = (ImageView) findViewById(R.id.minute_up);
         minuteDown = (ImageView) findViewById(R.id.minute_down);
 
-
-
     }
 
 
@@ -182,7 +134,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 minuteUp.setVisibility(View.VISIBLE);
                 minuteDown.setVisibility(View.VISIBLE);
 
-                confirmSetting.setOnClickListener(this);
+//                confirmSetting.setOnClickListener(this);
                 setTime.setClickable(false);
                 openSetTimeUIAnim();
                 break;
@@ -195,78 +147,102 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.hour_up:
                 Toast.makeText(MainActivity.this,"hourup",Toast.LENGTH_SHORT).show();
+                addOneHour();
                 break;
             case R.id.hour_down:
                 Toast.makeText(MainActivity.this,"hourdown",Toast.LENGTH_SHORT).show();
+                minusOneHour();
                 break;
             case R.id.minute_up:
                 Toast.makeText(MainActivity.this,"minuteup",Toast.LENGTH_SHORT).show();
+                addFiveMinutes();
                 break;
             case R.id.minute_down:
                 Toast.makeText(MainActivity.this,"minutedown",Toast.LENGTH_SHORT).show();
+                minusFiveMinutes();
                 break;
             default:
                 break;
         }
     }
 
-//    private void updateUI() {
-//        new Thread(){
-//                    public void run() {
-//                        try {
-//                            Message message = new Message();
-//                            message.what = CLOSE_SET_TIME_INTERFACE;
-//                            message. =
-//                            handler.sendMessage(message);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }.start();
-//    }
 
-//    private Handler handler = new Handler() {
-//        public void handleMessage(Message msg) {
-//            switch (msg.what) {
-//                case OPEN_SET_TIME_INTERFACE:
-//                    Toast.makeText(MainActivity.this, "open", Toast.LENGTH_SHORT).show();
-//                    Resources res = getResources();
-//                    Drawable drawable = res.getDrawable(R.drawable.bkcolorgray);
-//                    MainActivity.this.getWindow().setBackgroundDrawable(drawable);
-//                    break;
-//                case CLOSE_SET_TIME_INTERFACE:
-//                    Toast.makeText(MainActivity.this, "close", Toast.LENGTH_SHORT).show();
-//                    break;
-//                default:
-//                    break;
-//
-//            }
-//        }
-//
-//    };
+
+    private void addOneHour() {
+        int curHour = Integer.parseInt(textTimeHour.getText().toString());
+        curHour ++;
+        if (curHour >= 0 && curHour < 10) {
+            textTimeHour.setText("0"+curHour);
+        }else if (curHour >= 10 && curHour < 24) {
+            textTimeHour.setText("" + curHour);
+        }else if (curHour == 24) {
+            textTimeHour.setText("00");
+        } else {
+            //时间小于零，或大于24
+        }
+    }
+
+    private void minusOneHour() {
+        int curHour = Integer.parseInt(textTimeHour.getText().toString());
+        curHour --;
+        if (curHour >= 0 && curHour < 10) {
+            textTimeHour.setText("0"+curHour);
+        }else if (curHour >= 10 && curHour < 24) {
+            textTimeHour.setText("" + curHour);
+        }else if (curHour == -1) {
+            textTimeHour.setText("23");
+        } else {
+            //时间小于零，或大于24
+        }
+    }
+
+    private void addFiveMinutes() {
+        int curMinute = Integer.parseInt(textTimeMinute.getText().toString());
+        curMinute = curMinute + 5;
+        if (curMinute >= 0 && curMinute < 10) {
+            textTimeMinute.setText("0"+curMinute);
+        }else if (curMinute >= 10 && curMinute < 60) {
+            textTimeMinute.setText("" + curMinute);
+        }else if (curMinute == 60) {
+            textTimeMinute.setText("00");
+        } else {
+            //时间小于零，或大于24
+        }
+    }
+
+    private void minusFiveMinutes() {
+        int curMinute = Integer.parseInt(textTimeMinute.getText().toString());
+        curMinute = curMinute - 5;
+        if (curMinute >= 0 && curMinute < 10) {
+            textTimeMinute.setText("0"+curMinute);
+        }else if (curMinute >= 10 && curMinute < 60) {
+            textTimeMinute.setText("" + curMinute);
+        }else if (curMinute == -5) {
+            textTimeMinute.setText("55");
+        } else {
+            //时间小于零，或大于24
+        }
+    }
+
+
 
 
     private void saveData() {
-
+        SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
         String hour = textTimeHour.getText().toString();
         String minute = textTimeMinute.getText().toString();
-        editor = pref.edit();
         editor.putString("hour", hour);
         editor.putString("minute", minute);
         editor.commit();
     }
 
     private void loadData() {
-        pref = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        if (pref!=null) {
-            String hour = pref.getString("hour", "07");
-            String minute = pref.getString("minute", "00");
-            Log.d(">>>>>>>>>", "1");
-//            textTimeHour.setText(hour);
-//            textTimeMinute.setText(minute);
-        } else {
-            Toast.makeText(this,"loadData",Toast.LENGTH_SHORT).show();
-        }
+        SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
+        final String hour = pref.getString("hour", "07");
+        final String minute = pref.getString("minute", "00");
+        textTimeHour.setText(hour);
+        textTimeMinute.setText(minute);
+
     }
 
 
