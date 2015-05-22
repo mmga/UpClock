@@ -7,12 +7,16 @@ import android.animation.AnimatorSet;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -29,6 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mmga.upclock.R;
+import com.mmga.upclock.Receiver.AlarmReceiver;
+import com.mmga.upclock.Service.UpClockService;
 import com.mmga.upclock.Utils.DrawerItemClickListener;
 
 /**
@@ -56,8 +62,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private ListView mDrawerList;
     private String[] listData = new String[]{"主题设置", "铃声设置","分享给朋友"};
 
-    private int hourData = -1;
-    private int minuteData =-1;
+
+    private static final int INTERVAL = 1000 * 60 * 60 * 24;
 
 
 
@@ -69,9 +75,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         init();
         loadData();
+
+//        设置背景色
         Resources res = getResources();
         Drawable drawable = res.getDrawable(R.drawable.bkcolor);
         this.getWindow().setBackgroundDrawable(drawable);
+
+
 
 //        右边抽屉菜单栏的ListView
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listData));
@@ -92,6 +102,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         hourDown.setOnClickListener(this);
         minuteUp.setOnClickListener(this);
         minuteDown.setOnClickListener(this);
+
 
     }
 
@@ -193,7 +204,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     private void addFiveMinutes() {
         int curMinute = Integer.parseInt(textTimeMinute.getText().toString());
-        curMinute = curMinute + 5;
+        curMinute = curMinute + 1;
         if (curMinute >= 0 && curMinute < 10) {
             textTimeMinute.setText("0"+curMinute);
         }else if (curMinute >= 10 && curMinute < 60) {
@@ -221,7 +232,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
 
-
+//
     private void saveData() {
         SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
         String hour = textTimeHour.getText().toString();
@@ -229,6 +240,27 @@ public class MainActivity extends Activity implements View.OnClickListener{
         editor.putString("hour", hour);
         editor.putString("minute", minute);
         editor.commit();
+//        清空闹铃服务
+        cleanAlarm();
+        Log.d(">>>>>>>>>>>>>", "cleanAlarm");
+//        启动闹铃服务
+        startAlarm(hour, minute);
+        Log.d(">>>>>>>>>>>>>", "startAlarm");
+
+    }
+
+    private void cleanAlarm() {
+        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent i = new Intent(this, AlarmReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
+        manager.cancel(pi);
+    }
+
+    private void startAlarm(String hour,String minute) {
+        Intent intent = new Intent(this, UpClockService.class);
+        intent.putExtra("hour", hour);
+        intent.putExtra("minute", minute);
+        startService(intent);
     }
 
     private void loadData() {
@@ -237,6 +269,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         final String minute = pref.getString("minute", "00");
         textTimeHour.setText(hour);
         textTimeMinute.setText(minute);
+
 
     }
 

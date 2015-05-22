@@ -19,7 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.PlayAlarm"
+            android:screenOrientation="portrait"></activity>
 
+        <receiver android:name=".Receiver.AlarmReceiver"
+            android:process=":remote"></receiver>
+        <service android:name=".Service.UpClockService"
+            android:process=":remote"></service>
     </application>
 
 </manifest>
