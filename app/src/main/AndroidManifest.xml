@@ -24,6 +24,8 @@
 
         <receiver android:name=".Receiver.AlarmReceiver"
             android:process=":remote"></receiver>
+
+
         <service android:name=".Service.UpClockService"
             android:process=":remote"></service>
     </application>

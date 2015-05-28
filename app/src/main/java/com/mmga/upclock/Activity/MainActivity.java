@@ -16,12 +16,13 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.ArrayAdapter;
@@ -30,7 +31,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mmga.upclock.R;
 import com.mmga.upclock.Receiver.AlarmReceiver;
@@ -47,6 +47,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private ImageView btnSettings;
     private TextView textTomorrow;
     private TextView textTimeHour;
+    private TextView textTimeColon;
     private TextView textTimeMinute;
     private TextView textSwitchState;
     private RelativeLayout setTime;
@@ -75,6 +76,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         init();
         loadData();
+        changeTomorrow();
 
 //        设置背景色
         Resources res = getResources();
@@ -82,6 +84,24 @@ public class MainActivity extends Activity implements View.OnClickListener{
         this.getWindow().setBackgroundDrawable(drawable);
 
 
+        main.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        Intent i = new Intent(MainActivity.this,PlayAlarm.class);
+                        startActivity(i);
+
+
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        break;
+                }
+                return true;
+            }
+        });
 
 //        右边抽屉菜单栏的ListView
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listData));
@@ -93,6 +113,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 mDrawerLayout.openDrawer(mRightDrawer);
             }
         });
+
+
 
 //        打开闹钟设置界面的按钮
         setTime.setClickable(true);
@@ -106,6 +128,21 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     }
 
+    private void changeTomorrow() {
+        Time t = new Time();
+        t.setToNow();
+        int h1 = t.hour;
+        int m1 = t.minute;
+        int h2 = Integer.parseInt((String) textTimeHour.getText());
+        int m2 = Integer.parseInt((String) textTimeMinute.getText());
+
+        if (h2 < h1 || (h2 == h1 && m2 <= m1)) {
+            textTomorrow.setText("明天");
+        } else {
+            textTomorrow.setText("今天");
+        }
+    }
+
     private void init() {
         main = (RelativeLayout) findViewById(R.id.main);
         btnSettings = (ImageView) findViewById(R.id.btn_settings);
@@ -113,6 +150,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         setTime = (RelativeLayout) findViewById(R.id.layout_set_time);
         confirmSetting = (RelativeLayout) findViewById(R.id.layout_confirm_time);
         textTomorrow = (TextView) findViewById(R.id.text_tomorrow);
+        textTimeColon = (TextView) findViewById(R.id.text_time_colon);
         textTimeHour = (TextView) findViewById(R.id.text_time_Hour);
         textTimeMinute = (TextView) findViewById(R.id.text_time_Minute);
         textSwitchState = (TextView) findViewById(R.id.text_switch_state);
@@ -146,26 +184,26 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.layout_confirm_time:
                 saveData();
-//                updateUI();
+                changeTomorrow();
                 setTime.setVisibility(View.VISIBLE);
                 confirmSetting.setClickable(false);
                 closeSetTimeUIAnim();
                 break;
             case R.id.hour_up:
-                Toast.makeText(MainActivity.this,"hourup",Toast.LENGTH_SHORT).show();
                 addOneHour();
+                changeTomorrow();
                 break;
             case R.id.hour_down:
-                Toast.makeText(MainActivity.this,"hourdown",Toast.LENGTH_SHORT).show();
                 minusOneHour();
+                changeTomorrow();
                 break;
             case R.id.minute_up:
-                Toast.makeText(MainActivity.this,"minuteup",Toast.LENGTH_SHORT).show();
                 addFiveMinutes();
+                changeTomorrow();
                 break;
             case R.id.minute_down:
-                Toast.makeText(MainActivity.this,"minutedown",Toast.LENGTH_SHORT).show();
                 minusFiveMinutes();
+                changeTomorrow();
                 break;
             default:
                 break;
@@ -287,10 +325,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
         minuteDown.setX(rightX);
 
 //                界面缩小
-        ObjectAnimator anim1 = ObjectAnimator.ofFloat(main, "ScaleY", 1f, 0.9f);
-        anim1.setInterpolator(new AccelerateInterpolator());
-        ObjectAnimator anim2 = ObjectAnimator.ofFloat(main, "ScaleX", 1f, 0.9f);
-        anim2.setInterpolator(new AccelerateInterpolator());
+//        ObjectAnimator anim1 = ObjectAnimator.ofFloat(main, "ScaleY", 1f, 0.9f);
+//        anim1.setInterpolator(new AccelerateInterpolator());
+//        ObjectAnimator anim2 = ObjectAnimator.ofFloat(main, "ScaleX", 1f, 0.9f);
+//        anim2.setInterpolator(new AccelerateInterpolator());
 
 
 
@@ -333,6 +371,17 @@ public class MainActivity extends Activity implements View.OnClickListener{
         anim15.setEvaluator(new ArgbEvaluator());
         anim15.setTarget(mDrawerLayout);
 
+//        界面各组件缩小
+        Animator anim16 = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.scale_reduce);
+        anim16.setTarget(textTimeHour);
+        Animator anim17 = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.scale_reduce);
+        anim17.setTarget(textTimeMinute);
+        Animator anim18 = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.scale_reduce);
+        anim18.setTarget(textTimeColon);
+        Animator anim19 = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.scale_reduce);
+        anim19.setTarget(textTomorrow);
+        Animator anim20 = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.scale_reduce);
+        anim20.setTarget(textSwitchState);
 
 //              动画监听器 开始
         anim5.addListener(new AnimatorListenerAdapter() {
@@ -362,10 +411,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
         });
 
 
+
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(400);
-        animatorSet.playTogether(anim1,anim2,/*anim3,*/anim4,anim5,anim6,anim7,anim8,anim9,
-                anim10,anim11,anim12,anim13,anim14,anim15/*,anim16,anim17,anim18*/ );
+        animatorSet.playTogether(anim4,anim5,anim6,anim7,anim8,anim9,
+                anim10,anim11,anim12,anim13,anim14,anim15,anim16,anim17,anim18,anim19,anim20);
         animatorSet.start();
 
 
@@ -387,10 +437,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
         minuteDown.setX(rightX);
 
 //                界面放大
-        ObjectAnimator anim1 = ObjectAnimator.ofFloat(main, "ScaleY", 0.9f, 1f);
-        anim1.setInterpolator(new AccelerateInterpolator());
-        ObjectAnimator anim2 = ObjectAnimator.ofFloat(main, "ScaleX", 0.9f, 1f);
-        anim2.setInterpolator(new AccelerateInterpolator());
+//        ObjectAnimator anim1 = ObjectAnimator.ofFloat(main, "ScaleY", 0.9f, 1f);
+//        anim1.setInterpolator(new AccelerateInterpolator());
+//        ObjectAnimator anim2 = ObjectAnimator.ofFloat(main, "ScaleX", 0.9f, 1f);
+//        anim2.setInterpolator(new AccelerateInterpolator());
 
 //                “设置”按钮出现
         ObjectAnimator anim3 = ObjectAnimator.ofFloat(
@@ -434,6 +484,18 @@ public class MainActivity extends Activity implements View.OnClickListener{
         anim15.setTarget(mDrawerLayout);
 
 
+//        界面各组件放大
+        Animator anim16 = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.scale_increase);
+        anim16.setTarget(textTimeHour);
+        Animator anim17 = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.scale_increase);
+        anim17.setTarget(textTimeMinute);
+        Animator anim18 = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.scale_increase);
+        anim18.setTarget(textTimeColon);
+        Animator anim19 = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.scale_increase);
+        anim19.setTarget(textTomorrow);
+        Animator anim20 = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.scale_increase);
+        anim20.setTarget(textSwitchState);
+
 //              动画监听器 开始
         anim6.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -465,8 +527,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(400);
-        animatorSet.playTogether(anim1,anim2,anim3,anim4,/*anim5,*/anim6,anim7,anim8,
-                anim9,anim10,anim11,anim12,anim13,anim14,anim15);
+        animatorSet.playTogether(anim3,anim4,anim6,anim7,anim8,
+                anim9,anim10,anim11,anim12,anim13,anim14,anim15,anim16,anim17,anim18,anim19,anim20);
         animatorSet.start();
 
     }
@@ -484,5 +546,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
         Display display = manager.getDefaultDisplay();
         return display.getWidth();
     }
+
 
 }

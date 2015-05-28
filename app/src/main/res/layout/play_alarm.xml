@@ -2,12 +2,86 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ff26a69a">
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:text="闹铃执行了"
-        android:layout_gravity="center_horizontal" />
+        android:id="@+id/image_target"
+        android:src="@mipmap/pa_target"
+        android:layout_marginTop="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/image_target"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/arrows">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chevron_up1"
+            android:src="@mipmap/pa_chevron_up"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chevron_up2"
+            android:src="@mipmap/pa_chevron_up"
+            android:layout_alignTop="@+id/chevron_up1"
+            android:layout_marginTop="20dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chevron_up3"
+            android:src="@mipmap/pa_chevron_up"
+            android:layout_alignTop="@+id/chevron_up2"
+            android:layout_marginTop="20dp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/chevron_up4"
+            android:src="@mipmap/pa_chevron_up"
+            android:layout_alignTop="@+id/chevron_up3"
+            android:layout_marginTop="20dp"/>
+    </RelativeLayout>
+
+    <com.mmga.upclock.Utils.CustomFontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_get"
+        android:text="Get"
+        android:textColor="#fff0f0f0"
+        android:textSize="40sp"
+        android:layout_below="@+id/arrows"
+        android:layout_centerHorizontal="true" />
+    <com.mmga.upclock.Utils.CustomFontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_up"
+        android:textColor="#fff0f0f0"
+        android:textSize="40sp"
+        android:text="Up"
+        android:layout_alignTop="@+id/text_get"
+        android:layout_marginTop="35sp"
+        android:layout_centerHorizontal="true" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_getup"
+        android:src="@mipmap/pa_btn"
+
+        android:layout_centerHorizontal="true"
+         />
+
+
+
+
 </RelativeLayout>
