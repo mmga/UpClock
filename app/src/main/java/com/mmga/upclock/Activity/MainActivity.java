@@ -19,7 +19,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,6 +35,7 @@ import com.mmga.upclock.R;
 import com.mmga.upclock.Receiver.AlarmReceiver;
 import com.mmga.upclock.Service.UpClockService;
 import com.mmga.upclock.Utils.DrawerItemClickListener;
+import com.mmga.upclock.Utils.SysApplication;
 
 /**
  * Created by mmga on 2015/5/14.
@@ -73,6 +73,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        SysApplication.getInstance().addActivity(this);
 
         init();
         loadData();
@@ -84,22 +85,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
         this.getWindow().setBackgroundDrawable(drawable);
 
 
-        main.setOnTouchListener(new View.OnTouchListener() {
+        main.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        Intent i = new Intent(MainActivity.this,PlayAlarm.class);
-                        startActivity(i);
-
-
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        break;
-                }
-                return true;
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, PlayAlarm.class);
+                startActivity(i);
             }
         });
 

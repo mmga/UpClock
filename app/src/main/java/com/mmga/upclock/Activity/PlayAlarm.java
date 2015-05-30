@@ -1,5 +1,6 @@
 package com.mmga.upclock.Activity;
 
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.media.MediaPlayer;
@@ -8,12 +9,14 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mmga.upclock.R;
+import com.mmga.upclock.Utils.SysApplication;
 
 /**
  * Created by mmga on 2015/5/22.
@@ -22,12 +25,14 @@ public class PlayAlarm extends Activity {
 
     private ImageView btnGetUp;
     private ImageView imgTarget;
+    private ImageView backCircle;
     private ImageView chovronUp1;
     private ImageView chovronUp2;
     private ImageView chovronUp3;
     private ImageView chovronUp4;
     private TextView textGet;
-    private TextView textUp;
+//    private TextView textUp;
+    private TextView textCustom;
     private RelativeLayout arrows;
 
 
@@ -41,6 +46,9 @@ public class PlayAlarm extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play_alarm);
+        SysApplication.getInstance().addActivity(this);
+
+        backCircle = (ImageView) findViewById(R.id.image_back_circle);
         btnGetUp = (ImageView) findViewById(R.id.btn_getup);
         imgTarget = (ImageView) findViewById(R.id.image_target);
         chovronUp1 = (ImageView) findViewById(R.id.chevron_up1);
@@ -48,8 +56,9 @@ public class PlayAlarm extends Activity {
         chovronUp3 = (ImageView) findViewById(R.id.chevron_up3);
         chovronUp4 = (ImageView) findViewById(R.id.chevron_up4);
         textGet = (TextView) findViewById(R.id.text_get);
-        textUp = (TextView) findViewById(R.id.text_up);
+//        textUp = (TextView) findViewById(R.id.text_up);
         arrows = (RelativeLayout) findViewById(R.id.arrows);
+        textCustom = (TextView) findViewById(R.id.text_custom);
 
 
 //        WindowManager windowManager = getWindowManager();
@@ -79,11 +88,10 @@ public class PlayAlarm extends Activity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-//                        btnGetUp.setY(event.getRawY() - event.getY());
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        textDisappear(event.getRawY(),INIT_Y);
-                        arrowDisappear(event.getRawY(),INIT_Y);
+//                        textDisappear(event.getRawY(),INIT_Y);
+//                        arrowDisappear(event.getRawY(),INIT_Y);
                         move(event.getRawY(),INIT_Y);
 
                         break;
@@ -115,6 +123,21 @@ public class PlayAlarm extends Activity {
 
     private void changeUI() {
         Log.d(">>>>>>>>>>>>>>>", "changeUI");
+        backCircle.setVisibility(View.VISIBLE);
+        imgTarget.setVisibility(View.GONE);
+        textCustom.setVisibility(View.VISIBLE);
+        textGet.setVisibility(View.GONE);
+        arrows.setVisibility(View.GONE);
+        ObjectAnimator anim1 = ObjectAnimator.ofFloat(backCircle, "scaleX", 1f, 20f);
+        ObjectAnimator anim2 = ObjectAnimator.ofFloat(backCircle, "scaleY", 1f, 20f);
+        ObjectAnimator anim3 = ObjectAnimator.ofFloat(btnGetUp, "scaleX", 1f, 0f);
+        ObjectAnimator anim4 = ObjectAnimator.ofFloat(btnGetUp, "scaleY", 1f, 0f);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(500);
+        animatorSet.setInterpolator(new AccelerateInterpolator());
+        animatorSet.playTogether(anim1, anim2,anim3,anim4);
+        animatorSet.start();
+
         //TO DO
     }
 
@@ -145,9 +168,15 @@ public class PlayAlarm extends Activity {
 
     private void moveBack(float initY) {
         ObjectAnimator anim1 = ObjectAnimator.ofFloat(btnGetUp, "translationY", initY);
-        anim1.setDuration(300);
         anim1.setInterpolator(new DecelerateInterpolator());
+        anim1.setDuration(300);
         anim1.start();
+//        ObjectAnimator anim2 = ObjectAnimator.ofFloat(textGet, "translationY", initY);
+
+//        AnimatorSet animatorSet = new AnimatorSet();
+//        animatorSet.setDuration(300);
+//        animatorSet.playTogether(anim1,anim2);
+//        animatorSet.start();
     }
 
     private void move(float rawY,float initY) {
@@ -190,12 +219,10 @@ public class PlayAlarm extends Activity {
 
         float alpha = 1 - ((initY - y1)  / 100);
         textGet.setAlpha(alpha);
-        textUp.setAlpha(alpha);
 
         if (fingerY >= yTar && fingerY <= initY) {
             if (((y1 - fingerY >= 10) && y1 >= fingerY) || ((fingerY - y1 >= 10) && y1 < fingerY)) {
-                textGet.setTranslationY((float) (0.5 * y1-textGet.getTranslationY()));
-                textUp.setTranslationY((float) (0.5 * y1-textUp.getY()));
+                textGet.setY((float) (0.8*(fingerY)));
             }
         }else if (fingerY < yTar) {
         }else if (fingerY > initY) {
@@ -203,7 +230,10 @@ public class PlayAlarm extends Activity {
     }
 
 
-
+    @Override
+    public void onBackPressed() {
+        SysApplication.getInstance().exit();
+    }
 
     @Override
     protected void onDestroy() {
