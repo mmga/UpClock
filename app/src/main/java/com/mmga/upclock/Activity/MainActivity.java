@@ -87,6 +87,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         this.getWindow().setBackgroundDrawable(drawable);
 
 
+//        测试用，直接打开PlayAlarm界面
         main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,6 +121,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     }
 
+//    改变界面上“明天”“今天”的逻辑
     private void changeTomorrow() {
         Time t = new Time();
         t.setToNow();
@@ -135,6 +137,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
+//    关联控件
     private void init() {
         main = (RelativeLayout) findViewById(R.id.main);
         btnSettings = (ImageView) findViewById(R.id.btn_settings);
@@ -163,17 +166,17 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+//            点击“设置”按钮
             case R.id.layout_set_time:
                 confirmSetting.setVisibility(View.VISIBLE);
                 hourUp.setVisibility(View.VISIBLE);
                 hourDown.setVisibility(View.VISIBLE);
                 minuteUp.setVisibility(View.VISIBLE);
                 minuteDown.setVisibility(View.VISIBLE);
-
-//                confirmSetting.setOnClickListener(this);
                 setTime.setClickable(false);
                 openSetTimeUIAnim();
                 break;
+//            点击“确认”按钮
             case R.id.layout_confirm_time:
                 saveData();
                 changeTomorrow();
@@ -181,18 +184,22 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 confirmSetting.setClickable(false);
                 closeSetTimeUIAnim();
                 break;
+//            加小时
             case R.id.hour_up:
                 addOneHour();
                 changeTomorrow();
                 break;
+//            减小时
             case R.id.hour_down:
                 minusOneHour();
                 changeTomorrow();
                 break;
+//            加分钟
             case R.id.minute_up:
                 addFiveMinutes();
                 changeTomorrow();
                 break;
+//            见分钟
             case R.id.minute_down:
                 minusFiveMinutes();
                 changeTomorrow();
@@ -203,7 +210,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
 
-
+//       加一小时
     private void addOneHour() {
         int curHour = Integer.parseInt(textTimeHour.getText().toString());
         curHour ++;
@@ -218,6 +225,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
+//    减一小时
     private void minusOneHour() {
         int curHour = Integer.parseInt(textTimeHour.getText().toString());
         curHour --;
@@ -232,9 +240,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
+//    加5分钟
     private void addFiveMinutes() {
         int curMinute = Integer.parseInt(textTimeMinute.getText().toString());
-        curMinute = curMinute + 1;
+        curMinute = curMinute + 5;
         if (curMinute >= 0 && curMinute < 10) {
             textTimeMinute.setText("0"+curMinute);
         }else if (curMinute >= 10 && curMinute < 60) {
@@ -246,6 +255,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         }
     }
 
+//    见五分钟
     private void minusFiveMinutes() {
         int curMinute = Integer.parseInt(textTimeMinute.getText().toString());
         curMinute = curMinute - 5;
@@ -262,7 +272,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
 
-//
+//  保存闹铃数据到SharedPreferences
     private void saveData() {
         SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
         String hour = textTimeHour.getText().toString();
@@ -279,6 +289,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     }
 
+//    清空闹铃数据
     private void cleanAlarm() {
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
         Intent i = new Intent(this, AlarmReceiver.class);
@@ -286,6 +297,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         manager.cancel(pi);
     }
 
+//    启动闹铃服务
     private void startAlarm(String hour,String minute) {
         Intent intent = new Intent(this, UpClockService.class);
         intent.putExtra("hour", hour);
@@ -293,6 +305,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         startService(intent);
     }
 
+//    主页面加载时间数据
     private void loadData() {
         SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
         final String hour = pref.getString("hour", "07");
@@ -304,6 +317,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     }
 
 
+//    打开设置界面的动画
     private void openSetTimeUIAnim() {
 
         float textSetTimeCurTransY = setTime.getTranslationY();
@@ -411,6 +425,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
 
+//    关闭设置界面的动画
     private void closeSetTimeUIAnim() {
 
         float textSetTimeCurTransY = confirmSetting.getTranslationY();
@@ -522,6 +537,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         return display.getHeight();
     }
 
+//    获取屏幕宽度
     private static int getScreenWidth(Context context) {
         WindowManager manager = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);

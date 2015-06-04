@@ -39,7 +39,7 @@ public class PlayAlarm extends Activity {
     private ImageView chovronUp3;
     private ImageView chovronUp4;
     private TextView textGet;
-//    private TextView textUp;
+    private TextView textUp;
     private TextView textCustom;
     private RelativeLayout arrows;
 
@@ -69,16 +69,9 @@ public class PlayAlarm extends Activity {
         textCustom = (TextView) findViewById(R.id.text_custom);
 
 
-//        WindowManager windowManager = getWindowManager();
-//        Display display = windowManager.getDefaultDisplay();
-//        float screenHeight = display.getHeight();
-//        float ydpi = getResources().getDisplayMetrics().ydpi;
-//        float imgHeight = btnGetUp.getHeight();
-//        final float INIT_Y = screenHeight-80*(ydpi/160)-imgHeight;
         final float INIT_Y = 800;
         btnGetUp.setTranslationY(INIT_Y);
 
-//        chovronUpAnim();
 
         getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
@@ -87,12 +80,8 @@ public class PlayAlarm extends Activity {
                 WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
                         | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
-//        mp = MediaPlayer.create(this, R.raw.clock);
-//        mp.setLooping(true);
-//        mp.start();
 //        播放铃声
         mpStart();
-
 
 //        震动
         final Vibrator vibrator = (Vibrator) PlayAlarm.this.getSystemService(Service.VIBRATOR_SERVICE);
@@ -138,6 +127,7 @@ public class PlayAlarm extends Activity {
 
     }
 
+//    播放铃声
     private void mpStart() {
         mp = MediaPlayer.create(PlayAlarm.this, getSystemDefaultRingtoneUri());
         mp.setLooping(true);
@@ -170,7 +160,6 @@ public class PlayAlarm extends Activity {
         animatorSet.playTogether(anim1, anim2,anim3,anim4);
         animatorSet.start();
 
-        //TO DO
     }
 
 
@@ -205,8 +194,6 @@ public class PlayAlarm extends Activity {
     private Uri getSystemDefaultRingtoneUri() {
             return RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM);
     }
-
-
 
     @Override
     public void onBackPressed() {
