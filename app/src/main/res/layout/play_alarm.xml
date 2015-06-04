@@ -6,40 +6,12 @@
     android:background="#ff26a69a">
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/image_target"
-        android:src="@mipmap/pa_target"
-        android:layout_centerHorizontal="true"
-        />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/image_back_circle"
-        android:src="@mipmap/pa_back_circle"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        />
-    <com.mmga.upclock.Utils.CustomFontTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="睡你麻痹起来嗨！"
-        android:id="@+id/text_custom"
-        android:textColor="#fff0f0f0"
-        android:textSize="55sp"
-        android:visibility="gone"
-        android:padding="10dp"/>
-
-
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/image_target"
-        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/text_get"
+        android:layout_centerInParent="true"
         android:id="@+id/arrows">
 
         <ImageView
@@ -77,17 +49,47 @@
         android:text="Get Up"
         android:textColor="#fff0f0f0"
         android:textSize="40sp"
-        android:layout_below="@+id/arrows"
+        android:layout_above="@+id/btn_getup"
         android:layout_centerHorizontal="true" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_target"
+        android:src="@mipmap/pa_target"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/arrows"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_back_circle"
+        android:src="@mipmap/pa_back_circle"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/arrows"
+        android:visibility="gone"
+        />
+    <com.mmga.upclock.Utils.CustomFontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="睡你麻痹起来嗨！"
+        android:id="@+id/text_custom"
+        android:textColor="#fff0f0f0"
+        android:textSize="55sp"
+        android:visibility="gone"
+        android:padding="10dp"
+        />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_getup"
         android:src="@mipmap/pa_btn"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-         />
+        />
 
 
 </RelativeLayout>
