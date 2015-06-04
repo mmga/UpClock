@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     android:background="#ff26a69a">
 
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/image_target"
         android:src="@mipmap/pa_target"
-        android:layout_marginTop="80dp"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         />
     <ImageView
@@ -19,8 +18,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/image_back_circle"
         android:src="@mipmap/pa_back_circle"
-        android:layout_marginTop="80dp"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:visibility="gone"
         />
@@ -89,11 +86,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_getup"
         android:src="@mipmap/pa_btn"
-
         android:layout_centerHorizontal="true"
          />
-
-
 
 
 </RelativeLayout>

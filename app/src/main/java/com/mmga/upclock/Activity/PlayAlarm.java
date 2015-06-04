@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,20 +35,10 @@ public class PlayAlarm extends Activity {
     private ImageView btnGetUp;
     private ImageView imgTarget;
     private ImageView backCircle;
-    private ImageView chovronUp1;
-    private ImageView chovronUp2;
-    private ImageView chovronUp3;
-    private ImageView chovronUp4;
     private TextView textGet;
-    private TextView textUp;
     private TextView textCustom;
     private RelativeLayout arrows;
-
-
     private MediaPlayer mp;
-
-
-
 
 
     @Override
@@ -59,20 +50,19 @@ public class PlayAlarm extends Activity {
         backCircle = (ImageView) findViewById(R.id.image_back_circle);
         btnGetUp = (ImageView) findViewById(R.id.btn_getup);
         imgTarget = (ImageView) findViewById(R.id.image_target);
-        chovronUp1 = (ImageView) findViewById(R.id.chevron_up1);
-        chovronUp2 = (ImageView) findViewById(R.id.chevron_up2);
-        chovronUp3 = (ImageView) findViewById(R.id.chevron_up3);
-        chovronUp4 = (ImageView) findViewById(R.id.chevron_up4);
         textGet = (TextView) findViewById(R.id.text_get);
-//        textUp = (TextView) findViewById(R.id.text_up);
         arrows = (RelativeLayout) findViewById(R.id.arrows);
         textCustom = (TextView) findViewById(R.id.text_custom);
 
 
-        final float INIT_Y = 800;
-        btnGetUp.setTranslationY(INIT_Y);
+//        初始化控件的位置
+        final float initY = (float) (0.8*heightPixels());
+        btnGetUp.setTranslationY(initY);
+        imgTarget.setTranslationY((float) (0.2 * heightPixels()));
+        backCircle.setTranslationY((float) (0.2 * heightPixels()));
 
 
+//        设置锁屏可用
         getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                         | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
@@ -88,7 +78,7 @@ public class PlayAlarm extends Activity {
         long[] pattern = new long[]{1000, 1000, 1000};
         vibrator.vibrate(pattern, 1);
 
-
+//        触摸事件
         btnGetUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -96,13 +86,14 @@ public class PlayAlarm extends Activity {
                     case MotionEvent.ACTION_DOWN:
                         break;
                     case MotionEvent.ACTION_MOVE:
-                        move(event.getRawY(),INIT_Y);
-
+                        move(event.getRawY(),initY);
                         break;
                     case MotionEvent.ACTION_UP:
                         float yTar = imgTarget.getY();
+//                        如果没拖到位置，就返回原位
                         if (event.getRawY() >= yTar) {
-                            moveBack(INIT_Y);
+                            moveBack(initY);
+//                         如果拖到位置了，切换界面
                         } else {
                             changeUI();
                             mp.pause();
@@ -118,16 +109,20 @@ public class PlayAlarm extends Activity {
                             timer.schedule(task, 4000);
                         }
                         break;
-
                 }
                 return true;
             }
         });
-
-
     }
 
-//    播放铃声
+//    获取屏幕高度
+    private int heightPixels() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        return metrics.heightPixels;
+    }
+
+//     播放铃声
     private void mpStart() {
         mp = MediaPlayer.create(PlayAlarm.this, getSystemDefaultRingtoneUri());
         mp.setLooping(true);
@@ -139,10 +134,9 @@ public class PlayAlarm extends Activity {
             e.printStackTrace();
         }
         mp.start();
-
     }
 
-
+//    切换界面动画
     private void changeUI() {
         Log.d(">>>>>>>>>>>>>>>", "changeUI");
         backCircle.setVisibility(View.VISIBLE);
@@ -162,7 +156,7 @@ public class PlayAlarm extends Activity {
 
     }
 
-
+//    按钮归位动画
     private void moveBack(float initY) {
         ObjectAnimator anim1 = ObjectAnimator.ofFloat(btnGetUp, "translationY", initY);
         anim1.setInterpolator(new DecelerateInterpolator());
@@ -170,15 +164,11 @@ public class PlayAlarm extends Activity {
         anim1.start();
     }
 
+//    拖动按钮的逻辑
     private void move(float rawY,float initY) {
         float y1 = btnGetUp.getY();
         float yTar = imgTarget.getY();
         float fingerY = (float) (rawY - 0.5 * btnGetUp.getHeight());
-//        Log.d(">>>>>>>>>", "y1="+y1);
-//        Log.d(">>>>>>>>>", "yTar="+yTar);
-//        Log.d(">>>>>>>>>", "yRaw="+rawY);
-//        Log.d(">>>>>>>>>", "fingerY="+fingerY);
-//        Log.d(">>>>>>>>>", "initY="+initY);
 
         if (fingerY >= yTar && fingerY <= initY) {
             if (((y1 - fingerY >= 10) && y1 >= fingerY) || ((fingerY - y1 >= 10) && y1 < fingerY)) {
@@ -191,6 +181,7 @@ public class PlayAlarm extends Activity {
         }
     }
 
+//    获取铃声地址
     private Uri getSystemDefaultRingtoneUri() {
             return RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM);
     }
@@ -202,7 +193,6 @@ public class PlayAlarm extends Activity {
 
     @Override
     protected void onDestroy() {
-
         mp.stop();
         mp.release();
         super.onDestroy();
