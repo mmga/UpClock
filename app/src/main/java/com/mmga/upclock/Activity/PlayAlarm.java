@@ -3,8 +3,12 @@ package com.mmga.upclock.Activity;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.Service;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +21,10 @@ import android.widget.TextView;
 
 import com.mmga.upclock.R;
 import com.mmga.upclock.Utils.SysApplication;
+
+import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by mmga on 2015/5/22.
@@ -82,6 +90,15 @@ public class PlayAlarm extends Activity {
 //        mp = MediaPlayer.create(this, R.raw.clock);
 //        mp.setLooping(true);
 //        mp.start();
+//        播放铃声
+        mpStart();
+
+
+//        震动
+        final Vibrator vibrator = (Vibrator) PlayAlarm.this.getSystemService(Service.VIBRATOR_SERVICE);
+        long[] pattern = new long[]{1000, 1000, 1000};
+        vibrator.vibrate(pattern, 1);
+
 
         btnGetUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -90,8 +107,6 @@ public class PlayAlarm extends Activity {
                     case MotionEvent.ACTION_DOWN:
                         break;
                     case MotionEvent.ACTION_MOVE:
-//                        textDisappear(event.getRawY(),INIT_Y);
-//                        arrowDisappear(event.getRawY(),INIT_Y);
                         move(event.getRawY(),INIT_Y);
 
                         break;
@@ -101,6 +116,17 @@ public class PlayAlarm extends Activity {
                             moveBack(INIT_Y);
                         } else {
                             changeUI();
+                            mp.pause();
+                            vibrator.cancel();
+//                            定时4秒后关闭
+                            TimerTask task = new TimerTask() {
+                                @Override
+                                public void run() {
+                                    onDestroy();
+                                }
+                            };
+                            Timer timer = new Timer();
+                            timer.schedule(task, 4000);
                         }
                         break;
 
@@ -112,14 +138,20 @@ public class PlayAlarm extends Activity {
 
     }
 
-//    public static class InitY {
-//
-//        public static float getInitY(ImageView view) {
-//            int[] location = new int[2];
-//            view.getLocationOnScreen(location);
-//            return location[1];
-//        }
-//    }
+    private void mpStart() {
+        mp = MediaPlayer.create(PlayAlarm.this, getSystemDefaultRingtoneUri());
+        mp.setLooping(true);
+        try {
+            mp.prepare();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mp.start();
+
+    }
+
 
     private void changeUI() {
         Log.d(">>>>>>>>>>>>>>>", "changeUI");
@@ -141,42 +173,12 @@ public class PlayAlarm extends Activity {
         //TO DO
     }
 
-//    private void chovronUpAnim() {
-//        ObjectAnimator anim1 = ObjectAnimator.ofFloat(chovronUp1, "translationY", chovronUp1.getY(), chovronUp1.getY() - 15);
-//        ObjectAnimator anim2 = ObjectAnimator.ofFloat(chovronUp2, "translationY", chovronUp2.getY(), chovronUp2.getY() - 15);
-//        ObjectAnimator anim3 = ObjectAnimator.ofFloat(chovronUp3, "translationY", chovronUp3.getY(), chovronUp3.getY() - 15);
-//        ObjectAnimator anim4 = ObjectAnimator.ofFloat(chovronUp4, "translationY", chovronUp4.getY(), chovronUp4.getY() - 15);
-//        ObjectAnimator anim5 = ObjectAnimator.ofFloat(chovronUp1, "translationY", chovronUp1.getY(), chovronUp1.getY() + 15);
-//        ObjectAnimator anim6 = ObjectAnimator.ofFloat(chovronUp2, "translationY", chovronUp2.getY(), chovronUp2.getY() + 15);
-//        ObjectAnimator anim7 = ObjectAnimator.ofFloat(chovronUp3, "translationY", chovronUp3.getY(), chovronUp3.getY() + 15);
-//        ObjectAnimator anim8 = ObjectAnimator.ofFloat(chovronUp4, "translationY", chovronUp4.getY(), chovronUp4.getY() + 15);
-//        AnimatorSet animatorSet = new AnimatorSet();
-//        animatorSet.setDuration(300);
-//
-//        animatorSet.play(anim1);
-//        animatorSet.play(anim2).with(anim5).after(anim1);
-//        animatorSet.play(anim3).with(anim6).after(anim2);
-//        animatorSet.play(anim4).with(anim7).after(anim3);
-//        animatorSet.play(anim8).after(anim4);
-//        anim8.addListener(new AnimatorListenerAdapter() {
-//            @Override
-//            public void onAnimationEnd(Animator animation) {
-//                chovronUpAnim();
-//            }
-//        });
-//    }
 
     private void moveBack(float initY) {
         ObjectAnimator anim1 = ObjectAnimator.ofFloat(btnGetUp, "translationY", initY);
         anim1.setInterpolator(new DecelerateInterpolator());
         anim1.setDuration(300);
         anim1.start();
-//        ObjectAnimator anim2 = ObjectAnimator.ofFloat(textGet, "translationY", initY);
-
-//        AnimatorSet animatorSet = new AnimatorSet();
-//        animatorSet.setDuration(300);
-//        animatorSet.playTogether(anim1,anim2);
-//        animatorSet.start();
     }
 
     private void move(float rawY,float initY) {
@@ -200,34 +202,10 @@ public class PlayAlarm extends Activity {
         }
     }
 
-
-
-    private void arrowDisappear(float rawY, float initY) {
-        float alpha = 1 - ((initY - rawY) * 2 / 100);
-        arrows.setAlpha(alpha);
-
-        float y1 = btnGetUp.getY();
-        if (((y1 - rawY >= 10) && y1 >= rawY) || ((rawY - y1 >= 10) && y1 < rawY)) {
-            arrows.setY((float) (rawY-0.5*btnGetUp.getHeight())/5);
-        }
+    private Uri getSystemDefaultRingtoneUri() {
+            return RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM);
     }
 
-    private void textDisappear(float rawY,float initY) {
-        float y1 = btnGetUp.getY();
-        float yTar = imgTarget.getY();
-        float fingerY = (float) (rawY - 0.5 * btnGetUp.getHeight());
-
-        float alpha = 1 - ((initY - y1)  / 100);
-        textGet.setAlpha(alpha);
-
-        if (fingerY >= yTar && fingerY <= initY) {
-            if (((y1 - fingerY >= 10) && y1 >= fingerY) || ((fingerY - y1 >= 10) && y1 < fingerY)) {
-                textGet.setY((float) (0.8*(fingerY)));
-            }
-        }else if (fingerY < yTar) {
-        }else if (fingerY > initY) {
-        }
-    }
 
 
     @Override
@@ -238,8 +216,8 @@ public class PlayAlarm extends Activity {
     @Override
     protected void onDestroy() {
 
-//        mp.stop();
-//        mp.release();
+        mp.stop();
+        mp.release();
         super.onDestroy();
     }
 

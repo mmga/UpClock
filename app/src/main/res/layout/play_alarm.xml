@@ -82,16 +82,6 @@
         android:textSize="40sp"
         android:layout_below="@+id/arrows"
         android:layout_centerHorizontal="true" />
-    <!--<com.mmga.upclock.Utils.CustomFontTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_up"
-        android:textColor="#fff0f0f0"
-        android:textSize="40sp"
-        android:text="Up"
-        android:layout_alignTop="@+id/text_get"
-        android:layout_marginTop="35sp"
-        android:layout_centerHorizontal="true" />-->
 
 
     <ImageView

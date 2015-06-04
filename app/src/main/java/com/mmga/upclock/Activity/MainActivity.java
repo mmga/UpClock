@@ -14,6 +14,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.text.format.Time;
@@ -314,11 +316,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
         minuteUp.setX(rightX);
         minuteDown.setX(rightX);
 
-//                界面缩小
-//        ObjectAnimator anim1 = ObjectAnimator.ofFloat(main, "ScaleY", 1f, 0.9f);
-//        anim1.setInterpolator(new AccelerateInterpolator());
-//        ObjectAnimator anim2 = ObjectAnimator.ofFloat(main, "ScaleX", 1f, 0.9f);
-//        anim2.setInterpolator(new AccelerateInterpolator());
 
 
 
@@ -426,11 +423,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
         minuteUp.setX(rightX);
         minuteDown.setX(rightX);
 
-//                界面放大
-//        ObjectAnimator anim1 = ObjectAnimator.ofFloat(main, "ScaleY", 0.9f, 1f);
-//        anim1.setInterpolator(new AccelerateInterpolator());
-//        ObjectAnimator anim2 = ObjectAnimator.ofFloat(main, "ScaleX", 0.9f, 1f);
-//        anim2.setInterpolator(new AccelerateInterpolator());
 
 //                “设置”按钮出现
         ObjectAnimator anim3 = ObjectAnimator.ofFloat(
@@ -535,6 +527,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 .getSystemService(Context.WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
         return display.getWidth();
+    }
+
+    //    设置铃声的回调函数
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Uri pickedUri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+        RingtoneManager.setActualDefaultRingtoneUri(MainActivity.this, RingtoneManager.TYPE_ALARM, pickedUri);
+
     }
 
 
