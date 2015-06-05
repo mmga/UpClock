@@ -32,6 +32,7 @@ public class Guide extends Activity implements ViewPager.OnPageChangeListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.guide);
         initViews();
+        initDots();
 
 
     }
@@ -71,9 +72,9 @@ public class Guide extends Activity implements ViewPager.OnPageChangeListener{
     }
 
     @Override
-    public void onPageSelected(int i) {
-        for (int j = 0; j < ids.length; j++) {
-            if (i == j) {
+    public void onPageSelected(int page) {
+        for (int i = 0; i < ids.length; i++) {
+            if (i == page) {
                 dots[i].setImageResource(R.drawable.grayrect);
             } else {
                 dots[i].setImageResource(R.drawable.whiterect);

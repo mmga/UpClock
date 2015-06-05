@@ -80,7 +80,7 @@ public class PlayAlarm extends Activity {
                         move(event.getRawY());
                         break;
                     case MotionEvent.ACTION_UP:
-                        float yTar = imgTarget.getY();
+                        float yTar = (float) (imgTarget.getY() + 0.5 * btnGetUp.getHeight());
 //                        如果没拖到位置，就返回原位
                         if (event.getRawY() >= yTar) {
                             moveBack();
@@ -169,7 +169,7 @@ public class PlayAlarm extends Activity {
 //    拖动按钮的逻辑
     private void move(float rawY) {
         float margin = getResources().getDimensionPixelSize(R.dimen.margin_bottom);
-        float initY = heightPixels() - margin - btnGetUp.getHeight();
+        float initY = heightPixels() - margin - btnGetUp.getHeight()-20;
         float y1 = btnGetUp.getY();
         float yTar = imgTarget.getY();
         float fingerY = (float) (rawY - 0.5 * btnGetUp.getHeight());
