@@ -63,7 +63,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private DrawerLayout mDrawerLayout;
     private LinearLayout mRightDrawer;
     private ListView mDrawerList;
-    private String[] listData = new String[]{"主题设置", "铃声设置","分享给朋友"};
+    private String[] listData = new String[]{"铃声设置","分享给朋友","联系开发者"};
 
 
     private static final int INTERVAL = 1000 * 60 * 60 * 24;

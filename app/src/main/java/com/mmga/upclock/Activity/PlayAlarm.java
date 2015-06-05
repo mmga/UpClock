@@ -3,11 +3,13 @@ package com.mmga.upclock.Activity;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.Service;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -51,17 +53,6 @@ public class PlayAlarm extends Activity {
         arrows = (RelativeLayout) findViewById(R.id.arrows);
         textCustom = (TextView) findViewById(R.id.text_custom);
 
-
-//        初始化控件的位置
-//        final float initY = (float) (0.6*heightPixels()-0.5*yHeight());
-//        Log.d(">>>>>>>>>>", "yHeight = " + yHeight());
-//        Log.d(">>>>>>>>>>", "initY = " + initY);
-//        btnGetUp.setY(initY);
-//        imgTarget.setY((float) (0.2 * heightPixels()-0.5*yHeight()));
-//        backCircle.setY((float) (0.2 * heightPixels() - 0.5 * yHeight()));
-
-
-
 //        设置锁屏可用
         getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
@@ -73,11 +64,10 @@ public class PlayAlarm extends Activity {
 //        播放铃声
         mpStart();
 
-
 //        震动
-//        final Vibrator vibrator = (Vibrator) PlayAlarm.this.getSystemService(Service.VIBRATOR_SERVICE);
-//        long[] pattern = new long[]{1000, 1000, 1000};
-//        vibrator.vibrate(pattern, 1);
+        final Vibrator vibrator = (Vibrator) PlayAlarm.this.getSystemService(Service.VIBRATOR_SERVICE);
+        long[] pattern = new long[]{1000, 1000, 1000};
+        vibrator.vibrate(pattern, 1);
 
 //        触摸事件
         btnGetUp.setOnTouchListener(new View.OnTouchListener() {
@@ -98,7 +88,7 @@ public class PlayAlarm extends Activity {
                         } else {
                             changeUI();
                             mp.stop();
-//                            vibrator.cancel();
+                            vibrator.cancel();
 //                            定时4秒后关闭
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -147,7 +137,6 @@ public class PlayAlarm extends Activity {
 
 //    切换界面动画
     private void changeUI() {
-        Log.d(">>>>>>>>>>>>>>>", "changeUI");
         backCircle.setVisibility(View.VISIBLE);
         imgTarget.setVisibility(View.GONE);
         textCustom.setVisibility(View.VISIBLE);
@@ -206,7 +195,7 @@ public class PlayAlarm extends Activity {
     @Override
     protected void onDestroy() {
         mp.release();
-        super.onDestroy();
+        SysApplication.getInstance().exit();
     }
 
 

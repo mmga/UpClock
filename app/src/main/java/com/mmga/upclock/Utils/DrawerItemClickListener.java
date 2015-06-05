@@ -29,10 +29,20 @@ public class DrawerItemClickListener implements android.widget.AdapterView.OnIte
     }
 
     private void selectItem(int position) {
-        Toast.makeText(getContext(), "item" + position, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "设置闹铃铃声");
-        ((Activity)getContext()).startActivityForResult(intent, 1);
+        switch (position) {
+            case 0:
+                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "设置闹铃铃声");
+                ((Activity)getContext()).startActivityForResult(intent, 1);
+                break;
+            case 1:
+                Toast.makeText(getContext(), "╮(╯_╰)╭", Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
+                Toast.makeText(getContext(), "╮(╯_╰)╭", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
     }
 }
