@@ -87,14 +87,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
         this.getWindow().setBackgroundDrawable(drawable);
 
 
-//        测试用，直接打开PlayAlarm界面
-        main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, PlayAlarm.class);
-                startActivity(i);
-            }
-        });
+////        测试用，直接打开PlayAlarm界面
+//        main.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(MainActivity.this, PlayAlarm.class);
+//                startActivity(i);
+//            }
+//        });
 
 //        右边抽屉菜单栏的ListView
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listData));
@@ -199,7 +199,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 addFiveMinutes();
                 changeTomorrow();
                 break;
-//            见分钟
+//            减分钟
             case R.id.minute_down:
                 minusFiveMinutes();
                 changeTomorrow();
@@ -334,9 +334,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
 //                “设置”按钮消失
-       /* ObjectAnimator anim3 = ObjectAnimator.ofFloat(
-                setTime, "translationY", textSetTimeCurTransY, textSetTimeCurTransY + 80);
-        anim3.setInterpolator(new DecelerateInterpolator());*/
         ObjectAnimator anim4 = ObjectAnimator.ofFloat(setTime, "alpha", 1f, 0f);
         anim4.setInterpolator(new DecelerateInterpolator());
 
@@ -447,9 +444,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
         anim4.setInterpolator(new DecelerateInterpolator());
 
 //                “确认”按钮消失
-        /*ObjectAnimator anim5 = ObjectAnimator.ofFloat(
-                confirmSetting, "translationY", textSetTimeCurTransY, textSetTimeCurTransY + 80);
-        anim5.setInterpolator(new DecelerateInterpolator());*/
         ObjectAnimator anim6 = ObjectAnimator.ofFloat(confirmSetting, "alpha", 1f, 0f);
         anim6.setInterpolator(new DecelerateInterpolator());
 

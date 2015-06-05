@@ -63,7 +63,7 @@ public class UpClockService extends Service {
         Notification notification = new Notification(R.drawable.ic_alarm, "闹铃已设定", System.currentTimeMillis());
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-        notification.setLatestEventInfo(this, "闹铃设定时间", day + " " + hourData + ":" + minuteData, pendingIntent);
+        notification.setLatestEventInfo(this, "闹铃", day + " " + hourData + ":" + minuteData, pendingIntent);
         startForeground(1, notification);
 
         Intent i = new Intent(this, AlarmReceiver.class);

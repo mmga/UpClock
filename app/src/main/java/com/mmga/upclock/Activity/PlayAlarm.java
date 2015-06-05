@@ -4,12 +4,14 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Service;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.text.format.Time;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -22,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mmga.upclock.R;
+import com.mmga.upclock.Service.UpClockService;
 import com.mmga.upclock.Utils.SysApplication;
 
 import java.io.IOException;
@@ -52,6 +55,11 @@ public class PlayAlarm extends Activity {
         textGet = (TextView) findViewById(R.id.text_get);
         arrows = (RelativeLayout) findViewById(R.id.arrows);
         textCustom = (TextView) findViewById(R.id.text_custom);
+
+//        重新启动服务
+        Time t = new Time();
+        t.setToNow();
+        startAlarm(""+t.hour, ""+t.minute);
 
 //        设置锁屏可用
         getWindow().addFlags(
@@ -89,13 +97,13 @@ public class PlayAlarm extends Activity {
                             changeUI();
                             mp.stop();
                             vibrator.cancel();
-//                            定时4秒后关闭
+//                            定时3秒后关闭
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     onDestroy();
                                 }
-                            }, 4000);
+                            }, 3000);
                         }
                         break;
                 }
@@ -185,7 +193,12 @@ public class PlayAlarm extends Activity {
         }
     }
 
-
+    private void startAlarm(String hour,String minute) {
+        Intent intent = new Intent(this, UpClockService.class);
+        intent.putExtra("hour", hour);
+        intent.putExtra("minute", minute);
+        startService(intent);
+    }
 
     @Override
     public void onBackPressed() {
