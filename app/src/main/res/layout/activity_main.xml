@@ -89,7 +89,6 @@
             android:textColor="#eceff1"
             android:layout_toLeftOf="@+id/text_time_colon"
             android:textSize="130sp"/>
-            <!--android:text="07"-->
 
 
         <com.mmga.upclock.Utils.CustomFontTextViewNum
@@ -110,7 +109,6 @@
             android:layout_toRightOf="@+id/text_time_colon"
             android:textSize="130sp"/>
 
-            <!--android:text="30"-->
 
         </RelativeLayout>
 

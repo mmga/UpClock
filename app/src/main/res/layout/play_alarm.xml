@@ -5,6 +5,45 @@
     android:layout_height="match_parent"
     android:background="#ff26a69a">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/text_time"
+        android:layout_alignParentTop="true"
+        >
+
+        <com.mmga.upclock.Utils.CustomFontTextViewNum
+            android:id="@+id/pa_time_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#eceff1"
+            android:layout_toLeftOf="@+id/pa_time_colon"
+            android:textSize="130sp"/>
+
+
+        <com.mmga.upclock.Utils.CustomFontTextViewNum
+            android:id="@+id/pa_time_colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#eceff1"
+            android:textSize="130sp"
+            android:layout_centerHorizontal="true"
+            android:text=":"
+            />
+
+        <com.mmga.upclock.Utils.CustomFontTextViewNum
+            android:id="@+id/pa_time_minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#eceff1"
+            android:layout_toRightOf="@+id/pa_time_colon"
+            android:textSize="130sp"/>
+
+
+    </RelativeLayout>
+
+
 
     <RelativeLayout
         android:layout_width="wrap_content"

@@ -87,14 +87,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
         this.getWindow().setBackgroundDrawable(drawable);
 
 
-////        测试用，直接打开PlayAlarm界面
-//        main.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(MainActivity.this, PlayAlarm.class);
-//                startActivity(i);
-//            }
-//        });
+//        测试用，直接打开PlayAlarm界面
+        main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, PlayAlarm.class);
+                startActivity(i);
+            }
+        });
 
 //        右边抽屉菜单栏的ListView
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listData));
@@ -541,10 +541,16 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     //    设置铃声的回调函数
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Uri pickedUri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
-        RingtoneManager.setActualDefaultRingtoneUri(MainActivity.this, RingtoneManager.TYPE_ALARM, pickedUri);
+        if (data != null) {
+            Uri pickedUri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+            RingtoneManager.setActualDefaultRingtoneUri(MainActivity.this, RingtoneManager.TYPE_ALARM, pickedUri);
+        }
+
 
     }
 
 
+    public Uri getSystemDefaultRingtoneUri() {
+        return RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM);
+    }
 }

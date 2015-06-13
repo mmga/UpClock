@@ -4,7 +4,9 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -41,6 +43,7 @@ public class PlayAlarm extends Activity {
     private TextView textCustom;
     private RelativeLayout arrows;
     private MediaPlayer mp;
+    private TextView textHour,textMinute,textColon;
 
 
     @Override
@@ -55,11 +58,15 @@ public class PlayAlarm extends Activity {
         textGet = (TextView) findViewById(R.id.text_get);
         arrows = (RelativeLayout) findViewById(R.id.arrows);
         textCustom = (TextView) findViewById(R.id.text_custom);
-
-//        重新启动服务
+        textHour = (TextView) findViewById(R.id.pa_time_hour);
+        textMinute = (TextView) findViewById(R.id.pa_time_minute);
         Time t = new Time();
         t.setToNow();
-        startAlarm(""+t.hour, ""+t.minute);
+        textHour.setText(t.hour+"");
+        textMinute.setText(t.minute+"");
+
+//        重新启动服务
+        startAlarm("" + t.hour, "" + t.minute);
 
 //        设置锁屏可用
         getWindow().addFlags(
@@ -68,6 +75,15 @@ public class PlayAlarm extends Activity {
         getWindow().addFlags(
                 WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
                         | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+
+//        获取音量管理器
+        final AudioManager mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        int maxVolume = mAudioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        final int curVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        Log.d(">>>>>>>>>>", "" + maxVolume);
+        Log.d(">>>>>>>>>>", "" + curVolume);
+//        调音量至max
+        mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC,maxVolume,0);
 
 //        播放铃声
         mpStart();
@@ -101,6 +117,8 @@ public class PlayAlarm extends Activity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
+//                                    音量复原
+                                    mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC,curVolume,0);
                                     onDestroy();
                                 }
                             }, 3000);
@@ -133,6 +151,7 @@ public class PlayAlarm extends Activity {
             mp = MediaPlayer.create(PlayAlarm.this, R.raw.clock);
         }
         mp.setLooping(true);
+        mp.setVolume(1,1);
         try {
             mp.prepare();
         } catch (IllegalStateException e) {
