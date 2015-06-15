@@ -12,8 +12,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,6 +36,7 @@ import com.mmga.upclock.Receiver.AlarmReceiver;
 import com.mmga.upclock.Service.UpClockService;
 import com.mmga.upclock.Utils.DrawerItemClickListener;
 import com.mmga.upclock.Utils.SysApplication;
+import com.mmga.upclock.Utils.ThemeUtil;
 
 /**
  * Created by mmga on 2015/5/14.
@@ -63,7 +62,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private DrawerLayout mDrawerLayout;
     private LinearLayout mRightDrawer;
     private ListView mDrawerList;
-    private String[] listData = new String[]{"铃声设置","分享给朋友","联系开发者"};
+    private String[] listData = new String[]{"铃声设置","主题设置","意见反馈"};
 
 
     private static final int INTERVAL = 1000 * 60 * 60 * 24;
@@ -75,16 +74,22 @@ public class MainActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        //        判断所加载的主题
+        ThemeUtil.loadCustomTheme(this);
         SysApplication.getInstance().addActivity(this);
+
+//        ImageView header = (ImageView)findViewById(R.id.nav_header);
+//        header.setBackgroundResource(R.color.cyan);
+
 
         init();
         loadData();
         changeTomorrow();
 
 //        设置背景色
-        Resources res = getResources();
-        Drawable drawable = res.getDrawable(R.drawable.bkcolor);
-        this.getWindow().setBackgroundDrawable(drawable);
+//        Resources res = getResources();
+//        Drawable drawable = res.getDrawable(R.drawable.bkcolor);
+//        this.getWindow().setBackgroundDrawable(drawable);
 
 
 //        测试用，直接打开PlayAlarm界面
@@ -119,9 +124,11 @@ public class MainActivity extends Activity implements View.OnClickListener{
         minuteDown.setOnClickListener(this);
 
 
+
     }
 
-//    改变界面上“明天”“今天”的逻辑
+
+    //    改变界面上“明天”“今天”的逻辑
     private void changeTomorrow() {
         Time t = new Time();
         t.setToNow();

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <com.mmga.upclock.Utils.CustomFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:text="@string/main_theme_text"
+            android:textSize="30sp"
+            android:id="@+id/text_theme_color"
+            android:layout_centerHorizontal="true"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/color_selector"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:layout_below="@+id/text_theme_color"
+            >
+
+            <include layout="@layout/color_board1"
+                android:id="@+id/color_board1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <include layout="@layout/color_board2"
+                android:id="@+id/color_board2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+        <com.mmga.upclock.Utils.CustomFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_color"
+            android:text="@string/playalarm_custom_text"
+            android:textSize="30sp"
+            android:id="@+id/text_custom"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/color_selector"
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:hint="@string/playalarm_text"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/text_custom"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/confirm_setting"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        >
+        <ImageView
+            android:id="@+id/btn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_check_white_36dp"
+            />
+        <com.mmga.upclock.Utils.CustomFontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text_confirm"
+            android:textSize="25sp"
+            android:textColor="@color/text_color"
+            android:text="@string/confirm"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/btn_confirm"
+            android:layout_toEndOf="@+id/btn_confirm"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

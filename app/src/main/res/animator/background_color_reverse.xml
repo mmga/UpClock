@@ -3,7 +3,6 @@
     android:duration="400"
     android:propertyName="backgroundColor"
     android:valueFrom="#ffffa726"
-    android:valueTo="#FF26A69A"
     android:valueType="intType"
     android:interpolator="@android:anim/decelerate_interpolator"
     >

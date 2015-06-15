@@ -36,6 +36,9 @@
         <activity android:name=".Activity.PlayAlarm"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".Activity.SetTheme"
+            android:screenOrientation="portrait"/>
+
         <receiver android:name=".Receiver.AlarmReceiver"
             android:process=":receiver"/>
 

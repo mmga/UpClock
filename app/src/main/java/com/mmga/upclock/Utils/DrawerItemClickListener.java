@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.mmga.upclock.Activity.SetTheme;
+
 /**
  * Created by mmga on 2015/5/15.
  */
@@ -38,6 +40,8 @@ public class DrawerItemClickListener implements android.widget.AdapterView.OnIte
                 break;
             case 1:
                 Toast.makeText(getContext(), "╮(╯_╰)╭", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(getContext(), SetTheme.class);
+                getContext().startActivity(intent1);
                 break;
             case 2:
                 Toast.makeText(getContext(), "╮(╯_╰)╭", Toast.LENGTH_SHORT).show();

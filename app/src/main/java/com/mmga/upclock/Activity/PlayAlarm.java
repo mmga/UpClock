@@ -121,7 +121,7 @@ public class PlayAlarm extends Activity {
                                     mAudioManager.setStreamVolume(AudioManager.STREAM_MUSIC,curVolume,0);
                                     onDestroy();
                                 }
-                            }, 3000);
+                            }, 4000);
                         }
                         break;
                 }
@@ -169,8 +169,8 @@ public class PlayAlarm extends Activity {
         textCustom.setVisibility(View.VISIBLE);
         textGet.setVisibility(View.GONE);
         arrows.setVisibility(View.GONE);
-        ObjectAnimator anim1 = ObjectAnimator.ofFloat(backCircle, "scaleX", 1f, 20f);
-        ObjectAnimator anim2 = ObjectAnimator.ofFloat(backCircle, "scaleY", 1f, 20f);
+        ObjectAnimator anim1 = ObjectAnimator.ofFloat(backCircle, "scaleX", 1f, 80f);
+        ObjectAnimator anim2 = ObjectAnimator.ofFloat(backCircle, "scaleY", 1f, 80f);
         ObjectAnimator anim3 = ObjectAnimator.ofFloat(btnGetUp, "scaleX", 1f, 0f);
         ObjectAnimator anim4 = ObjectAnimator.ofFloat(btnGetUp, "scaleY", 1f, 0f);
         AnimatorSet animatorSet = new AnimatorSet();

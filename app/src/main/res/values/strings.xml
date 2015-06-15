@@ -4,6 +4,19 @@
 
     <string name="title">UpClock</string>
     <string name="action_settings">settings</string>
-    <drawable name="bkcolor">#ff26a69a</drawable>
-    <drawable name="bkcolorgray">#ffc1c1c1</drawable>
+    <string name="change_ring">铃声设置</string>
+    <string name="change_theme">主题设置</string>
+    <string name="suggest">意见反馈</string>
+    <string name="confirm">确认</string>
+    <string name="main_getup">准时起</string>
+    <string name="main_settings">设定</string>
+    <string name="main_tomorrow">明天</string>
+    <string name="playalarm_getup">Get Up</string>
+    <string name="colon">:</string>
+    <string name="playalarm_text">睡你麻痹起来嗨！</string>
+    <string name="main_theme_text">主界面颜色</string>
+    <string name="playalarm_theme_text">响铃界面</string>
+    <string name="playalarm_custom_text">响铃文字</string>
+    <!--<drawable name="bkcolor">#ff26a69a</drawable>-->
+    <!--<drawable name="bkcolorgray">#ffc1c1c1</drawable>-->
 </resources>

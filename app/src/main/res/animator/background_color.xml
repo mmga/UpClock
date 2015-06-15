@@ -2,7 +2,6 @@
     <objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
         android:duration="400"
         android:propertyName="backgroundColor"
-        android:valueFrom="#ff26a69a"
         android:valueTo="#ffffa726"
         android:valueType="intType"
         android:interpolator="@android:anim/decelerate_interpolator"
