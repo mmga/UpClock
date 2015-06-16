@@ -12,6 +12,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -73,13 +74,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
         //        判断所加载的主题
         ThemeUtil.loadCustomTheme(this);
+        setContentView(R.layout.activity_main);
         SysApplication.getInstance().addActivity(this);
-
-//        ImageView header = (ImageView)findViewById(R.id.nav_header);
-//        header.setBackgroundResource(R.color.cyan);
 
 
         init();
@@ -371,8 +369,14 @@ public class MainActivity extends Activity implements View.OnClickListener{
         ObjectAnimator anim14 = ObjectAnimator.ofFloat(minuteDown, "alpha",0f,1f);
 
 //        背景色渐变
-        ObjectAnimator anim15 = (ObjectAnimator) AnimatorInflater
-                .loadAnimator(MainActivity.this, R.animator.background_color);
+//        ObjectAnimator anim15 = (ObjectAnimator) AnimatorInflater
+//                .loadAnimator(MainActivity.this, R.animator.background_color);
+        TypedArray a = obtainStyledAttributes(new int[]{
+                R.attr.mainColor,R.attr.setTimeColor
+        });
+        ObjectAnimator anim15 = ObjectAnimator.ofInt(main, "color", a.getColor(0, 0), a.getColor(1, 0));
+        anim15.setDuration(400);
+        anim15.setInterpolator(new DecelerateInterpolator());
         anim15.setEvaluator(new ArgbEvaluator());
         anim15.setTarget(mDrawerLayout);
 

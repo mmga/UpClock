@@ -6,6 +6,7 @@
     android:layout_margin="@dimen/colorboard_margin">
 
     <ImageView
+        android:id="@+id/lime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/lime_round"
@@ -13,6 +14,7 @@
         />
 
     <ImageView
+        android:id="@+id/light_green"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/lightgreen_round"
@@ -20,6 +22,7 @@
         />
 
     <ImageView
+        android:id="@+id/teal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/teal_round"
@@ -27,6 +30,7 @@
         />
 
     <ImageView
+        android:id="@+id/cyan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/cyan_round"
@@ -34,6 +38,7 @@
         />
 
     <ImageView
+        android:id="@+id/light_blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/lightblue_round"

@@ -6,6 +6,84 @@
     </style>
 
 
+    <style name="PurpleTheme" parent="Theme.AppCompat.NoActionBar" >
+        <item name="mainColor">@color/purple</item>
+        <item name="navHeadColor">@color/purple</item>
+        <item name="setThemeColor">@color/purple</item>
+        <item name="setTimeColor">@color/lime</item>
+        <item name="bgCircle">@drawable/lime_round</item>
+    </style>
 
+    <style name="PinkTheme" parent="Theme.AppCompat.NoActionBar" >
+        <item name="mainColor">@color/pink</item>
+        <item name="navHeadColor">@color/pink</item>
+        <item name="setThemeColor">@color/pink</item>
+        <item name="setTimeColor">@color/light_green</item>
+        <item name="bgCircle">@drawable/lightgreen_round</item>
+    </style>
+
+    <style name="RedTheme" parent="Theme.AppCompat.NoActionBar" >
+        <item name="mainColor">@color/red</item>
+        <item name="navHeadColor">@color/red</item>
+        <item name="setThemeColor">@color/red</item>
+        <item name="setTimeColor">@color/yellow</item>
+        <item name="bgCircle">@drawable/yellow_round</item>
+    </style>
+
+    <style name="OrangeTheme" parent="Theme.AppCompat.NoActionBar" >
+        <item name="mainColor">@color/orange</item>
+        <item name="navHeadColor">@color/orange</item>
+        <item name="setThemeColor">@color/orange</item>
+        <item name="setTimeColor">@color/teal</item>
+        <item name="bgCircle">@drawable/teal_round</item>
+    </style>
+
+    <style name="YellowTheme" parent="Theme.AppCompat.NoActionBar" >
+        <item name="mainColor">@color/yellow</item>
+        <item name="navHeadColor">@color/yellow</item>
+        <item name="setThemeColor">@color/yellow</item>
+        <item name="setTimeColor">@color/cyan</item>
+        <item name="bgCircle">@drawable/cyan_round</item>
+    </style>
+
+    <style name="LimeTheme" parent="Theme.AppCompat.NoActionBar" >
+        <item name="mainColor">@color/lime</item>
+        <item name="navHeadColor">@color/lime</item>
+        <item name="setThemeColor">@color/lime</item>
+        <item name="setTimeColor">@color/pink</item>
+        <item name="bgCircle">@drawable/pink_round</item>
+    </style>
+
+    <style name="LightGreenTheme" parent="Theme.AppCompat.NoActionBar" >
+        <item name="mainColor">@color/light_green</item>
+        <item name="navHeadColor">@color/light_green</item>
+        <item name="setThemeColor">@color/light_green</item>
+        <item name="setTimeColor">@color/purple</item>
+        <item name="bgCircle">@drawable/purple_round</item>
+    </style>
+
+    <style name="TealTheme" parent="Theme.AppCompat.NoActionBar" >
+        <item name="mainColor">@color/teal</item>
+        <item name="navHeadColor">@color/teal</item>
+        <item name="setThemeColor">@color/teal</item>
+        <item name="setTimeColor">@color/orange</item>
+        <item name="bgCircle">@drawable/orange_round</item>
+    </style>
+
+    <style name="CyanTheme" parent="Theme.AppCompat.NoActionBar" >
+        <item name="mainColor">@color/cyan</item>
+        <item name="navHeadColor">@color/cyan</item>
+        <item name="setThemeColor">@color/cyan</item>
+        <item name="setTimeColor">@color/yellow</item>
+        <item name="bgCircle">@drawable/yellow_round</item>
+    </style>
+
+    <style name="LightBlueTheme" parent="Theme.AppCompat.NoActionBar" >
+        <item name="mainColor">@color/light_blue</item>
+        <item name="navHeadColor">@color/light_blue</item>
+        <item name="setThemeColor">@color/light_blue</item>
+        <item name="setTimeColor">@color/pink</item>
+        <item name="bgCircle">@drawable/pink_round</item>
+    </style>
 
 </resources>

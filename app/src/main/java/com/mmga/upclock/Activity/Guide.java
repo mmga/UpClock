@@ -14,9 +14,7 @@ import com.mmga.upclock.Utils.ViewPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by mmga on 2015/6/5.
- */
+
 public class Guide extends Activity implements ViewPager.OnPageChangeListener{
 
     private ViewPager viewPager;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--自定义的属性-->
+    <attr name="mainColor" format="color"/>
+    <attr name="navHeadColor" format="color"/>
+    <attr name="setTimeColor" format="color"/>
+    <attr name="setThemeColor" format="color"/>
+    <attr name="bgCircle" format="reference"/>
+</resources>

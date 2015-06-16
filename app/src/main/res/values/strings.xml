@@ -17,6 +17,4 @@
     <string name="main_theme_text">主界面颜色</string>
     <string name="playalarm_theme_text">响铃界面</string>
     <string name="playalarm_custom_text">响铃文字</string>
-    <!--<drawable name="bkcolor">#ff26a69a</drawable>-->
-    <!--<drawable name="bkcolorgray">#ffc1c1c1</drawable>-->
 </resources>

@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_400">
+    android:background="?attr/mainColor">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -106,7 +106,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/image_back_circle"
-            android:src="@drawable/orange_round"
+            android:src="?attr/bgCircle"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:visibility="gone"

@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.mmga.upclock.R;
 import com.mmga.upclock.Service.UpClockService;
 import com.mmga.upclock.Utils.SysApplication;
+import com.mmga.upclock.Utils.ThemeUtil;
 
 import java.io.IOException;
 
@@ -49,6 +50,7 @@ public class PlayAlarm extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.loadCustomTheme(this);
         setContentView(R.layout.play_alarm);
         SysApplication.getInstance().addActivity(this);
 
