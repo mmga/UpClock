@@ -100,7 +100,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         });
 
 //        右边抽屉菜单栏的ListView
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listData));
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item, listData));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener(MainActivity.this));
 //        打开抽屉菜单栏的按钮
         btnSettings.setOnClickListener(new View.OnClickListener() {

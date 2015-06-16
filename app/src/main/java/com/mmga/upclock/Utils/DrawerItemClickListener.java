@@ -27,6 +27,7 @@ public class DrawerItemClickListener implements android.widget.AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
         selectItem(position);
     }
 

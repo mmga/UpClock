@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
@@ -64,8 +65,12 @@ public class PlayAlarm extends Activity {
         textMinute = (TextView) findViewById(R.id.pa_time_minute);
         Time t = new Time();
         t.setToNow();
-        textHour.setText(t.hour+"");
+        textHour.setText(t.hour + "");
         textMinute.setText(t.minute+"");
+
+        SharedPreferences preferences = getSharedPreferences("word", MODE_PRIVATE);
+        textCustom.setText(preferences.getString("word", "睡你麻痹起来嗨"));
+
 
 //        重新启动服务
         startAlarm("" + t.hour, "" + t.minute);
