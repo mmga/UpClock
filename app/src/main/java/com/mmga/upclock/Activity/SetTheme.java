@@ -63,6 +63,10 @@ public class SetTheme extends Activity implements View.OnClickListener{
 
         btnConfirm.setOnClickListener(this);
 
+        SharedPreferences preferences = getSharedPreferences("word", MODE_PRIVATE);
+        String str = preferences.getString("word", "睡你麻痹起来嗨");
+        editText.setText(str);
+
     }
 
     @Override
@@ -70,31 +74,40 @@ public class SetTheme extends Activity implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.confirm_setting:
                 saveCustomEditText();
+                Toast.makeText(this, "重启程序后启用新主题", Toast.LENGTH_SHORT).show();
                 finish();
                 break;
             case R.id.purple:
                 selectTheme(PURPLE);
+                Toast.makeText(this, "设置颜色： PURPLE",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.pink:
                 selectTheme(PINK);
+                Toast.makeText(this, "设置颜色： PINK",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.red:
                 selectTheme(RED);
+                Toast.makeText(this, "设置颜色： RED",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.orange:
                 selectTheme(ORANGE);
+                Toast.makeText(this, "设置颜色： ORANGE",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.light_green:
                 selectTheme(LIGHTGREEN);
+                Toast.makeText(this, "设置颜色： GREEN",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.teal:
                 selectTheme(TEAL);
+                Toast.makeText(this, "设置颜色： TEAL",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.cyan:
                 selectTheme(CYAN);
+                Toast.makeText(this, "设置颜色： CYAN",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.light_blue:
                 selectTheme(LIGHTBLUE);
+                Toast.makeText(this, "设置颜色： BLUE",Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -111,8 +124,8 @@ public class SetTheme extends Activity implements View.OnClickListener{
         SharedPreferences.Editor editor = getSharedPreferences("theme", MODE_PRIVATE).edit();
         editor.putInt("color", color);
         editor.apply();
-        ThemeUtil.changetheme(this,color);
-        Toast.makeText(this, "succeed" + color, Toast.LENGTH_SHORT).show();
+//        ThemeUtil.changetheme(this,color);
+
     }
 
 }

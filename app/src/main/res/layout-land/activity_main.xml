@@ -23,9 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:background="#00000000"
-
         android:padding="10dp"
-        android:src="@mipmap/ic_settings_white_36dp"
+        android:src="@drawable/btn_settings"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

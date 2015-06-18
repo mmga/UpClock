@@ -63,10 +63,28 @@ public class PlayAlarm extends Activity {
         textCustom = (TextView) findViewById(R.id.text_custom);
         textHour = (TextView) findViewById(R.id.pa_time_hour);
         textMinute = (TextView) findViewById(R.id.pa_time_minute);
+
+//        格式化显示当前时间
         Time t = new Time();
         t.setToNow();
-        textHour.setText(t.hour + "");
-        textMinute.setText(t.minute+"");
+        int hour = t.hour;
+        int minute = t.minute;
+        if (hour >= 0 && hour < 10) {
+            textHour.setText("0" + hour);
+        }else if (hour >= 10 && hour < 24) {
+            textHour.setText(""+hour);
+        }else if (hour == 24) {
+            textHour.setText("00");
+        }
+
+        if (minute >= 0 && minute < 10) {
+            textMinute.setText("0" + minute);
+        }else if (minute >= 10 && minute <60) {
+            textMinute.setText("" + minute);
+        }else if (minute == 60) {
+            textMinute.setText("00");
+        }
+
 
         SharedPreferences preferences = getSharedPreferences("word", MODE_PRIVATE);
         textCustom.setText(preferences.getString("word", "睡你麻痹起来嗨"));
@@ -171,9 +189,9 @@ public class PlayAlarm extends Activity {
 
 //    切换界面动画
     private void changeUI() {
+        textCustom.setVisibility(View.VISIBLE);
         backCircle.setVisibility(View.VISIBLE);
         imgTarget.setVisibility(View.GONE);
-        textCustom.setVisibility(View.VISIBLE);
         textGet.setVisibility(View.GONE);
         arrows.setVisibility(View.GONE);
         ObjectAnimator anim1 = ObjectAnimator.ofFloat(backCircle, "scaleX", 1f, 80f);
@@ -183,7 +201,7 @@ public class PlayAlarm extends Activity {
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(500);
         animatorSet.setInterpolator(new AccelerateInterpolator());
-        animatorSet.playTogether(anim1, anim2,anim3,anim4);
+        animatorSet.playTogether(anim1, anim2, anim3, anim4);
         animatorSet.start();
 
     }

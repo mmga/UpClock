@@ -2,14 +2,13 @@ package com.mmga.upclock.Utils;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.mmga.upclock.R;
 
 public class ThemeUtil {
 
-    private static int stheme;
+    private static int sTheme;
     static final public int PURPLE = 1;
     static final public int PINK = 2;
     static final public int RED = 3;
@@ -20,16 +19,15 @@ public class ThemeUtil {
     static final public int LIGHTBLUE = 10;
 
 
-    public static void changetheme(Activity activity,int theme) {
-        stheme = theme;
-        activity.finish();
-
-        activity.startActivity(new Intent(activity, activity.getClass()));
-    }
+//    public static void changetheme(Activity activity,int theme) {
+//        sTheme = theme;
+//        activity.finish();
+//        activity.startActivity(new Intent(activity, activity.getClass()));
+//    }
 
     public static void loadCustomTheme(Activity activity) {
         SharedPreferences preferences = activity.getSharedPreferences("theme", Context.MODE_PRIVATE);
-        int mainColor = preferences.getInt("color", 2);
+        int mainColor = preferences.getInt("color", CYAN);
         int style = R.style.CyanTheme;
         switch (mainColor) {
             case PURPLE:

@@ -40,7 +40,6 @@ public class DrawerItemClickListener implements android.widget.AdapterView.OnIte
                 ((Activity)getContext()).startActivityForResult(intent, 1);
                 break;
             case 1:
-                Toast.makeText(getContext(), "╮(╯_╰)╭", Toast.LENGTH_SHORT).show();
                 Intent intent1 = new Intent(getContext(), SetTheme.class);
                 getContext().startActivity(intent1);
                 break;

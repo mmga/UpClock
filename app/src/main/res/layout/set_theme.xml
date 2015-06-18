@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cyan"
+    android:background="?attr/mainColor"
     >
 
     <RelativeLayout
@@ -51,19 +51,20 @@
             android:id="@+id/text_custom"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/color_selector"
+
             />
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:maxLength="8"
-            android:hint="@string/playalarm_text"
+            android:text="@string/playalarm_text"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/text_custom"
-            android:textColorLink="@color/text_color"
             android:textColor="@color/text_color"
-            android:textColorHint="@color/text_color"
-            android:id="@+id/custom_edit_text" />
+            android:id="@+id/custom_edit_text"
+            android:background="@drawable/edittext_background"
+        />
 
     </RelativeLayout>
 
