@@ -87,7 +87,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"
             android:layout_toLeftOf="@+id/text_time_colon"
-            android:textSize="@dimen/main_time_size"/>
+            android:textSize="@dimen/x115"
+            android:text="00"/>
 
 
         <com.mmga.upclock.Utils.CustomFontTextViewNum
@@ -95,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/main_time_size"
+            android:textSize="@dimen/x115"
             android:layout_centerHorizontal="true"
             android:text=":"
             />
@@ -106,7 +107,8 @@
             android:layout_height="wrap_content"
             android:textColor="#eceff1"
             android:layout_toRightOf="@+id/text_time_colon"
-            android:textSize="@dimen/main_time_size"/>
+            android:textSize="@dimen/x115"
+            android:text="00"/>
 
 
         </RelativeLayout>

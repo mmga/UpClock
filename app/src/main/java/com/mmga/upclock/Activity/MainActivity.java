@@ -84,20 +84,16 @@ public class MainActivity extends Activity implements View.OnClickListener{
         loadData();
         changeTomorrow();
 
-//        设置背景色
-//        Resources res = getResources();
-//        Drawable drawable = res.getDrawable(R.drawable.bkcolor);
-//        this.getWindow().setBackgroundDrawable(drawable);
 
 
 //        测试用，直接打开PlayAlarm界面
-        main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, PlayAlarm.class);
-                startActivity(i);
-            }
-        });
+//        main.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(MainActivity.this, PlayAlarm.class);
+//                startActivity(i);
+//            }
+//        });
 
 //        右边抽屉菜单栏的ListView
         mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item, listData));

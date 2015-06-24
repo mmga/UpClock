@@ -22,7 +22,7 @@
             android:textColor="@color/text_color"
             android:layout_toLeftOf="@+id/pa_time_colon"
             android:layout_toStartOf="@+id/pa_time_colon"
-            android:textSize="@dimen/main_time_size"/>
+            android:textSize="@dimen/x115"/>
 
 
         <com.mmga.upclock.Utils.CustomFontTextViewNum
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/main_time_size"
+            android:textSize="@dimen/x115"
             android:layout_centerHorizontal="true"
             android:text="@string/colon"
             />
@@ -42,7 +42,7 @@
             android:textColor="@color/text_color"
             android:layout_toRightOf="@+id/pa_time_colon"
             android:layout_toEndOf="@+id/pa_time_colon"
-            android:textSize="@dimen/main_time_size"/>
+            android:textSize="@dimen/x115"/>
 
 
     </RelativeLayout>
