@@ -37,7 +37,8 @@
         android:textColor="@color/text_color"
         android:textSize="30sp"
         android:text="@string/main_tomorrow"
-        android:layout_alignTop="@+id/text_time"
+        android:layout_alignBottom="@+id/text_time"
+        android:layout_marginBottom="@dimen/x125"
         android:layout_centerHorizontal="true" />
 
     <ImageView
@@ -121,8 +122,8 @@
         android:textColor="#eceff1"
         android:textSize="30sp"
         android:text="@string/main_getup"
-        android:layout_alignBottom="@+id/text_time"
-        android:paddingTop="30sp"
+        android:layout_alignTop="@+id/text_time"
+        android:layout_marginTop="@dimen/x125"
         android:layout_centerHorizontal="true"
          />
 
