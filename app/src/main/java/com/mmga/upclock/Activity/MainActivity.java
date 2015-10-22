@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -12,7 +11,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.TypedArray;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -63,7 +61,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private DrawerLayout mDrawerLayout;
     private LinearLayout mRightDrawer;
     private ListView mDrawerList;
-    private String[] listData = new String[]{"铃声设置","主题设置","意见反馈","分享给朋友"};
+    private String[] listData = new String[]{"铃声设置","主题设置","意见反馈"};
 
 
     private static final int INTERVAL = 1000 * 60 * 60 * 24;
@@ -364,17 +362,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
         ObjectAnimator anim13 = ObjectAnimator.ofFloat(minuteUp, "alpha",0f,1f);
         ObjectAnimator anim14 = ObjectAnimator.ofFloat(minuteDown, "alpha",0f,1f);
 
-//        背景色渐变
-//        ObjectAnimator anim15 = (ObjectAnimator) AnimatorInflater
-//                .loadAnimator(MainActivity.this, R.animator.background_color);
-        TypedArray a = obtainStyledAttributes(new int[]{
-                R.attr.mainColor,R.attr.setTimeColor
-        });
-        ObjectAnimator anim15 = ObjectAnimator.ofInt(main, "color", a.getColor(0, 0), a.getColor(1, 0));
-        anim15.setDuration(400);
-        anim15.setInterpolator(new DecelerateInterpolator());
-        anim15.setEvaluator(new ArgbEvaluator());
-        anim15.setTarget(mDrawerLayout);
 
 //        界面各组件缩小
         Animator anim16 = AnimatorInflater.loadAnimator(MainActivity.this,R.animator.scale_reduce);
@@ -420,7 +407,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(400);
         animatorSet.playTogether(anim4,anim5,anim6,anim7,anim8,anim9,
-                anim10,anim11,anim12,anim13,anim14,anim15,anim16,anim17,anim18,anim19,anim20);
+                anim10,anim11,anim12,anim13,anim14,anim16,anim17,anim18,anim19,anim20);
         animatorSet.start();
 
 
@@ -475,11 +462,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         anim11.setInterpolator(new DecelerateInterpolator());
         anim12.setInterpolator(new DecelerateInterpolator());
 
-//        背景色渐变
-        ObjectAnimator anim15 = (ObjectAnimator) AnimatorInflater
-                .loadAnimator(MainActivity.this, R.animator.background_color_reverse);
-        anim15.setEvaluator(new ArgbEvaluator());
-        anim15.setTarget(mDrawerLayout);
+
 
 
 //        界面各组件放大
@@ -526,7 +509,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.setDuration(400);
         animatorSet.playTogether(anim3,anim4,anim6,anim7,anim8,
-                anim9,anim10,anim11,anim12,anim13,anim14,anim15,anim16,anim17,anim18,anim19,anim20);
+                anim9,anim10,anim11,anim12,anim13,anim14,anim16,anim17,anim18,anim19,anim20);
         animatorSet.start();
 
     }
